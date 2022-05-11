@@ -1,0 +1,1 @@
+alias edit="emacsclient -t"

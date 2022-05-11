@@ -1,0 +1,49 @@
+-- Original theme: https://github.com/davidhdz/conky-horizontal-minimalist
+
+conky.config = {
+    alignment = 'bottom_middle',
+
+    cpu_avg_samples = 1,
+    net_avg_samples = 1,
+    update_interval = 2,
+
+    default_color = 'white',
+    default_outline_color = 'white',
+    default_shade_color = 'white',
+    color2 = '2980b9',
+
+    use_xft = true,
+    font = 'Roboto:size=14',
+
+    minimum_width = 890,
+    maximum_width = 890,
+
+    draw_borders = false,
+    draw_shades = false,
+    draw_graph_borders = false,
+    draw_outline = false,
+
+    border_width = 0,
+
+    gap_x = 0,
+    gap_y = 0,
+
+    own_window = true,
+    own_window_type = 'override',
+    own_window_transparent = true,
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    own_window_argb_visual = true,
+
+    double_buffer = true,
+    no_buffers = true,
+
+    total_run_times = 0,
+    background = true,
+
+    lua_load = '~/.config/conky/draw_bg.lua',
+    lua_draw_hook_pre = 'draw_bg',
+}
+
+conky.text = [[
+${goto 20}${color2}up: ${color}$uptime ${goto 295}${color2}cpu: ${color}${cpu}%  ${color2}freq: ${color}${freq_g} Ghz  ${color2}temp: ${color}${exec sensors | grep 'CPU' | cut -c16-22}  ${goto 744}${color2}/: $color${fs_used_perc /root}%  ${color2}ram: ${color}$memperc%
+]]
