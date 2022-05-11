@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 sentinel_file="/opt/system-config"
 
+# This won't be set during install so manually define it
+export NIX_PATH="${NIX_PATH:+$NIX_PATH:}$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels"
+
 echo -e "🦥 Running user configuration...\n"
 
 # First check if the nix directory exists
@@ -9,17 +12,18 @@ if [ ! -f "${sentinel_file}" ]; then
     exit 1
 fi
 
-echo -n "📥 Cloning in dotfiles... "
-if git clone https://github.com/spox/dotfiles ~/.config/nixpkgs > /dev/null 2>&1; then
+echo -n "📺 Add package channel... "
+
+if nix-channel --add https://nixos.org/channels/nixpkgs-unstable && nix-channel --update > /dev/null 2>&1; then
     echo "✔"
 else
     echo "❌"
     exit 1
 fi
 
-echo -n "📺 Add package channel... "
+echo -n "📺 Add nixgl channel... "
 
-if nix-channel --add https://nixos.org/channels/nixpkgs-unstable && nix-channel --update > /dev/null 2>&1; then
+if nix-channel --add https://github.com/guibou/nixGL/archive/main.tar.gz nixgl && nix-channel --update > /dev/null 2>&1; then
     echo "✔"
 else
     echo "❌"
@@ -43,6 +47,22 @@ else
     echo "❌"
     exit 1
 fi
+
+echo -n "📥 Cloning in dotfiles... "
+rm -rf ~/.config/nixpkgs
+if git clone https://github.com/spox/dotfiles ~/.config/nixpkgs > /dev/null 2>&1; then
+    echo "✔"
+else
+    echo "❌"
+    exit 1
+fi
+
+# Need to do some quick modifications to get things working
+
+# Need to stub in this directory for initial check to succeed
+mkdir -p ~/.config/doom
+# The .face file will already exist, so delete it
+rm -f ~/.face
 
 echo -n "🛠 Configuring self for nix... "
 . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"

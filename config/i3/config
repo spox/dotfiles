@@ -41,8 +41,8 @@
 
 # >>> Start a terminal <<<
 
-  bindsym $mod+Return exec kitty
-  bindsym $mod+Tab exec konsole
+  bindsym $mod+Return exec --no-startup-id default-terminal
+  bindsym $mod+Tab exec --no-startup-id konsole
 
 # >>> Kill focused window <<<
 

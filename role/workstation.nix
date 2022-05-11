@@ -7,8 +7,11 @@ let
     doomPrivateDir = ~/.config/doom;
   };
 
+  nixgl = import <nixgl> {};
 in {
   home.packages = with pkgs; [
+    nixgl.auto.nixGLDefault
+
     # Lets define our shell related things
     kitty
     tmux
@@ -48,6 +51,7 @@ in {
     gnupg
     git
     git-crypt
+    gitui
     helix
     lazygit
     ripgrep
@@ -114,6 +118,7 @@ in {
       em = "emacsclient -t";
       fgrep = "fgrep --color=auto";
       grep = "grep --color=auto";
+      kitty = "nixGL kitty";
       l = "ls -CF";
       la = "ls -A";
       ll = "ls -alF";
@@ -296,6 +301,7 @@ set-option -g display-time 7000
   };
 
   home.file.".face".source = ../config/fry.png;
+  home.file.".local/bin/default-terminal".source = ../config/bin/default-terminal;
 
   xsession.enable = true;
   xsession.windowManager.command = "/usr/bin/startplasma-x11";
