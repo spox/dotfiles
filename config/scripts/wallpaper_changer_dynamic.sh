@@ -1,39 +1,51 @@
-#!/bin/bash
-# Sets different wallpapers based on time
-# Kudos to https://wittchen.io/posts/dynamic-wallpaper-for-i3/
+#!/usr/bin/env bash
+# Set wallpaper based on time of day
 
-# First run of the script will randomly choose a directory in the ~/pix/walls_dynamic/ and
-# will save a path to the $CHOSEN_WALLPAPER_DIR file. See https://gitlab.com/maxnatt/dynamic_wallpapers
-# for examples.
+BASE_PATH="/home/spox/.config/wallpapers"
 
-# Where path of a currently chosen dir with dynamics wallpapers is stored
-CHOSEN_WALLPAPER_DIR=/tmp/.wc_dynamic_dir.txt
-
-set_wallpaper(){
-  echo "Setting the $1 wallpaper"
-  feh --no-fehbg --bg-fill "$1"
-  # Used for Plasma's lockscreen
-  cp $1 /tmp/.bg.jpg
-  chmod 0644 /tmp/.bg.jpg
-}
-
-main(){
-  if test -f "$CHOSEN_WALLPAPER_DIR"; then
-    echo "Dynamic dir is already chosen"
+function set() {
+  echo -n "Setting wallpaper using: ${1}... " >&2
+  if feh --no-fehbg --bg-fill "${1}"; then
+    echo "done" >&2
+    return 0
   else
-    find ~/.config/wallpapers/* -type d -print0 | shuf -z -n 1 > $CHOSEN_WALLPAPER_DIR
+    echo "FAILED!" >&2
+    return 1
   fi
-
-  wallpapers_path=$(tr -d '\0' <$CHOSEN_WALLPAPER_DIR)
-
-  hour=$(date +%H)
-  time_of_day=$(sunwait poll -23.4134127N 140.9435753E)
-  [[ $time_of_day == "DAY" ]] && [ $hour -lt 12 ] && set_wallpaper "$wallpapers_path/morning.jpg"
-  [ $hour -gt 11 ] && [ $hour -lt 15 ]            && set_wallpaper "$wallpapers_path/midday.jpg"
-  [ $hour -gt 14 ] && [[ $time_of_day == "DAY" ]] && set_wallpaper "$wallpapers_path/dusk.jpg"
-  [[ $time_of_day == "NIGHT" ]]                   && set_wallpaper "$wallpapers_path/night.jpg"
-
-  return 0
 }
 
-main
+function get_file() {
+  echo -n "Locating background file in directory ${1}... " >&2
+  if [[ -d "${1}" ]]; then
+    file="$(ls "${1}/"* | shuf -n 1)"
+    echo "${file}"
+    short_name="$(basename "${file}")"
+    echo "${short_name}" >&2
+    return 0
+  else
+    echo "FAILED!" >&2
+    return 1
+  fi
+}
+
+if [[ "${1}" == "poll" ]]; then
+  echo -n "Waiting for sunrise/sunset... " >&2
+  sunwait wait > /dev/null 2>&1
+  sleep 60 # wait a minute before we change
+  echo "ready!" >&2
+fi
+
+echo -n "Checking local time... " >&2
+time="$(sunwait poll)"
+time_val="$?"
+if [[ "${time_val}" == "1" ]]; then
+  echo "FAILED!" >&2
+elif [[ "${time_val}" == "2" ]]; then
+  dir="${BASE_PATH}/day"
+else
+  dir="${BASE_PATH}/night"
+fi
+echo "${time}" >&2
+
+wallpaper="$(get_file "${dir}")"
+set "${wallpaper}"
