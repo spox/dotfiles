@@ -47,12 +47,12 @@ if [ ! -f "${sentinel_file}" ]; then
 
     echo -n "🛑 Disabling service auto starts... "
 
-    echo <<-EOF > /usr/bin/policy-rc.d
+    cat <<-EOF > /usr/sbin/policy-rc.d
 #!/usr/bin/env bash
 exit 101
 EOF
 
-    chmod 0755 /usr/bin/policy-rc.d
+    chmod 0755 /usr/sbin/policy-rc.d
 
     echo "✔"
 
