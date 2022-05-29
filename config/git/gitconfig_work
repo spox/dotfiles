@@ -1,0 +1,20 @@
+[user]
+	name = Chris Roberts
+	email = croberts@hashicorp.com
+[core]
+	excludesfile = /home/spox/.gitignore_global
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+[url "ssh://git@github.com"]
+	insteadOf = https://github.com
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default
