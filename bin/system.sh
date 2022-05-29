@@ -12,6 +12,14 @@ echo -e "🚧 Running System Configuration 🚧\n\n"
 if [ ! -f "${sentinel_file}" ]; then
     # First we start with uninstalling all the known
     # extras we don't want installed
+    echo -n "⛔ Removing whoopsie... "
+
+    if apt-get purge -qqy whoopsie > /dev/null 2>&1; then
+        echo "✔"
+    else
+        echo "❌"
+        exit 1
+    fi
 
     echo -n "⛔ Removing snap... "
 
