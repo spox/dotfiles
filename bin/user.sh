@@ -74,5 +74,10 @@ echo -n "🛠 Removing shell configuration files... "
 rm -f "${HOME}/.bashrc" "${HOME}/.profile"
 echo "✔"
 
+# Update the home.nix file with machine name
+echo -n "🛠 Configuring for ${HOSTNAME}... "
+set -i "s/%MACHINE_NAME%/${HOSTNAME}/" "${HOME}/.config/nixpkgs/home.nix"
+echo "✔"
+
 echo "🏗 Building and enabling home... "
 home-manager switch
