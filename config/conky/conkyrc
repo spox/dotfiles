@@ -13,7 +13,7 @@ conky.config = {
     color2 = '2980b9',
 
     use_xft = true,
-    font = 'Roboto:size=14',
+    font = 'Noto Mono:size=10',
 
     minimum_width = 890,
     maximum_width = 890,
@@ -38,7 +38,7 @@ conky.config = {
     no_buffers = true,
 
     total_run_times = 0,
-    background = true,
+    background = false,
 
     lua_load = '~/.config/conky/draw_bg.lua',
     lua_draw_hook_pre = 'draw_bg',
