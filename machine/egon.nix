@@ -11,8 +11,8 @@
         Requires = "graphical-session.target";
       };
       Service = {
-        ExecStart = "xmodmap ${config.xdg.cacheHome}/xmodmap";
-        Restart = "never";
+        ExecStart = "xmodmap ${config.xdg.configHome}/xmodmap";
+        Restart = "no";
       };
     };
   };
