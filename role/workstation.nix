@@ -108,11 +108,11 @@ in {
         "$HOME/.nix-profile/bin:$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.local/bin.go:$HOME/.emacs.d/bin";
     };
     initExtra = ''
-      . ${config.xdg.cacheHome}/bash-aliases/bundler.sh
-            . ${config.xdg.cacheHome}/bash-aliases/copypasta.sh
-            . ${config.xdg.cacheHome}/bash-aliases/editor.sh
-            . ${config.xdg.cacheHome}/bash-aliases/git.sh
-            . ${config.xdg.cacheHome}/bash-aliases/vagrant.sh'';
+      . ${config.xdg.configHome}/bash-aliases/bundler.sh
+            . ${config.xdg.configHome}/bash-aliases/copypasta.sh
+            . ${config.xdg.configHome}/bash-aliases/editor.sh
+            . ${config.xdg.configHome}/bash-aliases/git.sh
+            . ${config.xdg.configHome}/bash-aliases/vagrant.sh'';
     bashrcExtra = ". $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh";
     shellAliases = {
       edit = "emacs -nw";
@@ -396,7 +396,7 @@ in {
       };
       Service = {
         ExecStart =
-          "${pkgs.conky}/bin/conky --pause=10 -c ${config.xdg.cacheHome}/conky/conkyrc";
+          "${pkgs.conky}/bin/conky --pause=10 -c ${config.xdg.configHome}/conky/conkyrc";
         Restart = "always";
       };
     };
@@ -407,7 +407,7 @@ in {
       };
       Service = {
         ExecStart =
-          "${config.xdg.cacheHome}/scripts/wallpaper_changer_dynamic.sh poll";
+          "${config.xdg.configHome}/scripts/wallpaper_changer_dynamic.sh poll";
         Restart = "always";
       };
     };
@@ -436,7 +436,7 @@ in {
         enable = true;
         extraConfig = ''
           exec --no-startup-id wmctrl -c Plasma
-          exec --no-startup-id nixGL picom -cCfb --experimental-backends --config ${config.xdg.cacheHome}/picom/picom.conf
+          exec --no-startup-id nixGL picom -cCfb --experimental-backends --config ${config.xdg.configHome}/picom/picom.conf
           no_focus [class="plasmashell" window_type="notification"]
           for_window [title="Desktop — Plasma"] kill; floating enable; border none
           for_window [title="Bureau — Plasma"] kill; floating enable; border none
