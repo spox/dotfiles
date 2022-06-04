@@ -39,15 +39,6 @@ else
     exit 1
 fi
 
-echo -n "🏗 Install home-manager... "
-
-if nix-shell '<home-manager>' -A install > /dev/null 2>&1; then
-    echo "✔"
-else
-    echo "❌"
-    exit 1
-fi
-
 echo -n "📥 Cloning in dotfiles... "
 rm -rf ~/.config/nixpkgs
 if git clone https://github.com/spox/dotfiles ~/.config/nixpkgs > /dev/null 2>&1; then
@@ -57,17 +48,10 @@ else
     exit 1
 fi
 
-# Need to do some quick modifications to get things working
-
 # Need to stub in this directory for initial check to succeed
 mkdir -p ~/.config/doom
 # The .face file will already exist, so delete it
 rm -f ~/.face
-
-echo -n "🛠 Configuring self for nix... "
-. "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-export PATH="~/.nix-profile/bin:${PATH}"
-echo "✔"
 
 # Remove profile and bashrc since home manager will generate them
 echo -n "🛠 Removing shell configuration files... "
@@ -79,5 +63,17 @@ echo -n "🛠 Configuring for ${HOSTNAME}... "
 set -i "s/%MACHINE_NAME%/${HOSTNAME}/" "${HOME}/.config/nixpkgs/home.nix"
 echo "✔"
 
-echo "🏗 Building and enabling home... "
-home-manager switch
+echo -n "🏗 Install home-manager... "
+
+if nix-shell '<home-manager>' -A install > /dev/null 2>&1; then
+    echo "✔"
+else
+    echo "❌"
+    exit 1
+fi
+
+echo -n "🛠 Configuring self for nix... "
+. "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+echo "✔"
+
+echo "   *** PLEASE REBOOT ***"
