@@ -17,5 +17,7 @@
     };
   };
 
+  programs.kitty.settings.font_size = 8;
+
   xdg.configFile = { "xmodmap".source = ../config/caps-xmodmap; };
 }
