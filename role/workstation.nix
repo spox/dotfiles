@@ -658,6 +658,26 @@ in {
     "wallpapers/day/20.jpg".source = ../config/wallpapers/day/20.jpg;
     "wallpapers/day/21.jpg".source = ../config/wallpapers/day/21.jpg;
     "wallpapers/day/22.jpg".source = ../config/wallpapers/day/22.jpg;
+    "wallpapers/day/23.jpg".source = ../config/wallpapers/day/23.jpg;
+    "wallpapers/day/24.png".source = ../config/wallpapers/day/24.png;
+    "wallpapers/day/25.jpg".source = ../config/wallpapers/day/25.jpg;
+    "wallpapers/day/26.jpg".source = ../config/wallpapers/day/26.jpg;
+    "wallpapers/day/27.jpg".source = ../config/wallpapers/day/27.jpg;
+    "wallpapers/day/28.jpg".source = ../config/wallpapers/day/28.jpg;
+    "wallpapers/day/29.jpg".source = ../config/wallpapers/day/29.jpg;
+    "wallpapers/day/30.jpg".source = ../config/wallpapers/day/30.jpg;
+    "wallpapers/day/31.jpg".source = ../config/wallpapers/day/31.jpg;
+    "wallpapers/day/32.jpg".source = ../config/wallpapers/day/32.jpg;
+    "wallpapers/day/33.jpg".source = ../config/wallpapers/day/33.jpg;
+    "wallpapers/day/34.jpg".source = ../config/wallpapers/day/34.jpg;
+    "wallpapers/day/35.jpg".source = ../config/wallpapers/day/35.jpg;
+    "wallpapers/day/36.jpg".source = ../config/wallpapers/day/36.jpg;
+    "wallpapers/day/37.jpg".source = ../config/wallpapers/day/37.jpg;
+    "wallpapers/day/38.jpg".source = ../config/wallpapers/day/38.jpg;
+    "wallpapers/day/39.jpg".source = ../config/wallpapers/day/39.jpg;
+    "wallpapers/day/40.jpg".source = ../config/wallpapers/day/40.jpg;
+    "wallpapers/day/41.jpg".source = ../config/wallpapers/day/41.jpg;
+    "wallpapers/day/42.jpg".source = ../config/wallpapers/day/42.jpg;
     "wallpapers/night/01.jpg".source = ../config/wallpapers/night/01.jpg;
     "wallpapers/night/02.jpg".source = ../config/wallpapers/night/02.jpg;
     "wallpapers/night/03.jpg".source = ../config/wallpapers/night/03.jpg;
@@ -675,6 +695,15 @@ in {
     "wallpapers/night/15.jpg".source = ../config/wallpapers/night/15.jpg;
     "wallpapers/night/16.jpg".source = ../config/wallpapers/night/16.jpg;
     "wallpapers/night/17.jpg".source = ../config/wallpapers/night/17.jpg;
+    "wallpapers/night/18.jpg".source = ../config/wallpapers/night/18.jpg;
+    "wallpapers/night/19.jpg".source = ../config/wallpapers/night/19.jpg;
+    "wallpapers/night/20.jpg".source = ../config/wallpapers/night/20.jpg;
+    "wallpapers/night/21.jpg".source = ../config/wallpapers/night/21.jpg;
+    "wallpapers/night/22.jpg".source = ../config/wallpapers/night/22.jpg;
+    "wallpapers/night/23.jpg".source = ../config/wallpapers/night/23.jpg;
+    "wallpapers/night/24.jpg".source = ../config/wallpapers/night/24.jpg;
+    "wallpapers/night/25.jpg".source = ../config/wallpapers/night/25.jpg;
+
     "xmodmap".source = ../config/caps-xmodmap;
   };
 }
