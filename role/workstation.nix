@@ -14,7 +14,9 @@ in {
     # Language related things
     crystal
     go
-    python
+    python3
+    python3Packages.pip
+    python3Packages.websocket-client
     ruby
 
     # Shell utilities
@@ -67,6 +69,7 @@ in {
 
     # weechat things
     aspell
+    aspellDicts.en
     weechat
     weechatScripts.wee-slack
 
@@ -110,7 +113,6 @@ in {
     initExtra = ''
       . ${config.xdg.configHome}/bash-aliases/bundler.sh
             . ${config.xdg.configHome}/bash-aliases/copypasta.sh
-            . ${config.xdg.configHome}/bash-aliases/editor.sh
             . ${config.xdg.configHome}/bash-aliases/git.sh
             . ${config.xdg.configHome}/bash-aliases/vagrant.sh'';
     bashrcExtra = ". $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh";
@@ -420,6 +422,8 @@ in {
     KDEWM = "${pkgs.i3-gaps}/bin/i3";
   };
 
+  home.file.".aspell.conf".text =
+    "data-dir ${config.home.homeDirectory}/.nix-profile/lib/aspell";
   home.file.".local/bin/default-terminal".source =
     ../config/bin/default-terminal;
   home.file.".gitignore_global".source = ../config/git/gitignore_global;
@@ -623,7 +627,6 @@ in {
   xdg.configFile = {
     "bash-aliases/bundler.sh".source = ../config/bash/aliases/bundler.sh;
     "bash-aliases/copypasta.sh".source = ../config/bash/aliases/copypasta.sh;
-    "bash-aliases/editor.sh".source = ../config/bash/aliases/editor.sh;
     "bash-aliases/git.sh".source = ../config/bash/aliases/git.sh;
     "bash-aliases/vagrant.sh".source = ../config/bash/aliases/vagrant.sh;
     "conky/conkyrc".source = ../config/conky/conkyrc;
