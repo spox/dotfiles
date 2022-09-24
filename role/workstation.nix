@@ -14,25 +14,36 @@ in {
     # Language related things
     crystal
     go
+    powershell
     python3
     python3Packages.pip
     python3Packages.websocket-client
     ruby
 
     # Shell utilities
+    awscli
+    bottom
+    broot
     catimg
     direnv
+    du-dust
+    exa
     gnupg
     gnutar
     gzip
+    heroku
     htop
     imagemagick
     jq
     keepassxc
+    lfs
     lm_sensors
+    metal-cli
+    miniserve
     netcat
     nmap
     p7zip
+    procs
     unzip
     xz
     yq
@@ -57,6 +68,7 @@ in {
     nixfmt
     ripgrep
     shellcheck
+    sqlite
     ssh-audit
     terraform
     tig
@@ -66,6 +78,7 @@ in {
     neofetch
     qrencode # Create QR
     whois
+    wtf
 
     # weechat things
     aspell
@@ -108,7 +121,7 @@ in {
       IRC_CLIENT = "weechat";
       KDEWM = "${pkgs.i3-gaps}/bin/i3";
       PATH =
-        "$HOME/.nix-profile/bin:$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.local/bin.go:$HOME/.emacs.d/bin";
+        "$HOME/.nix-profile/bin:$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.local/bin.go:$HOME/.local/go/bin:$HOME/.emacs.d/bin";
     };
     initExtra = ''
       . ${config.xdg.configHome}/bash-aliases/bundler.sh
@@ -123,10 +136,10 @@ in {
       fgrep = "fgrep --color=auto";
       grep = "grep --color=auto";
       kitty = "nixGL kitty";
-      l = "ls -CF";
-      la = "ls -A";
+      l = "ls -F";
+      la = "ls -a";
       ll = "ls -alF";
-      ls = "ls --color=auto";
+      ls = "exa --color=auto --icons";
     };
   };
 
@@ -426,6 +439,7 @@ in {
     "data-dir ${config.home.homeDirectory}/.nix-profile/lib/aspell";
   home.file.".local/bin/default-terminal".source =
     ../config/bin/default-terminal;
+  home.file.".local/bin/update-system".source = ../config/bin/update-system;
   home.file.".gitignore_global".source = ../config/git/gitignore_global;
   home.file.".doom.d/config.el".source = ../config/doom/config.el;
   home.file.".doom.d/init.el".source = ../config/doom/init.el;
@@ -605,9 +619,14 @@ in {
               { class = "krunner"; }
               { class = "Plasmoidviewer"; }
               { class = "plasma-desktop"; }
+              { class = "zoom"; }
               {
                 class = "plasmashell";
                 window_type = "notification";
+              }
+              {
+                class = "trojita";
+                window_role = "Compose Mail";
               }
               { window_role = "pop-up"; }
               { window_role = "bubble"; }
@@ -639,6 +658,7 @@ in {
     "scripts/rofi_suspend.sh".source = ../config/scripts/rofi_suspend.sh;
     "scripts/wallpaper_changer_dynamic.sh".source =
       ../config/scripts/wallpaper_changer_dynamic.sh;
+    "wtf/config.yml".source = ../config/wtf/config.yml;
     "wallpapers/day/01.jpg".source = ../config/wallpapers/day/01.jpg;
     "wallpapers/day/02.jpg".source = ../config/wallpapers/day/02.jpg;
     "wallpapers/day/03.jpg".source = ../config/wallpapers/day/03.jpg;

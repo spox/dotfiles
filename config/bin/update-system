@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+export DEBIAN_FRONTEND=noninteractive
+
+echo "Starting system upgrade..."
+
+if ! sudo apt-get update -yq; then
+    echo "ERROR: Failed to update system repositories"
+    exit 1
+fi
+
+if ! sudo apt-get upgrade -yq --with-new-pkgs; then
+    echo "ERROR: Failed to upgrade system packages"
+    exit 1
+fi
+
+if ! sudo apt-get autoremove -yq; then
+    echo "ERROR: Failed to run package auto-remover"
+    exit 1
+fi
+
+# Remove cached sudo
+sudo -k
+
+echo "Starting user configuration upgrade..."
+
+if ! nix-channel --update; then
+    echo "ERROR: Failed to update user configuration repositories"
+    exit 1
+fi
+
+if ! home-manager build; then
+    echo "ERROR: Failed to build updated user configuration"
+    exit 1
+fi
+
+printf "Update is complete\n\n  -> Run 'home-manager switch' to update current configuration"

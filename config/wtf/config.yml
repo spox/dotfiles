@@ -1,0 +1,83 @@
+wtf:
+  mods:
+    vagrant_github:
+      type: cmdrunner
+      args: ["issue", "list", "--repo", "hashicorp/vagrant"]
+      # args: ["issue", "list", "--repo", "hashicorp/vagrant",
+      #        "--json", "number,title,updatedAt,labels", "--template",
+      #        "{{range .}}{{tablerow (printf \"#%v\" .number | color \"green\") (truncate 40 .title | color \"white\") (timefmt \"Mon 02 03:04PM (Jan)\" .updatedAt | color \"yellow\") (join \", \" (pluck \"name\" .labels))}}{{end}}"]
+      cmd: "gh"
+      enabled: true
+      position:
+        top: 0
+        left: 0
+        height: 2
+        width: 4
+      refreshInterval: 5m
+      title: "📦"
+    hashicorp_status:
+      type: cmdrunner
+      args: ["status", "--org", "hashicorp"]
+      cmd: "gh"
+      enabled: true
+      title: "🧮"
+      position:
+        top: 2
+        left: 0
+        height: 2
+        width: 4
+      refreshInterval: 5m
+    resourceusage:
+      title: "📊"
+      cpuCombined: false
+      enabled: true
+      graphStars: 50
+      position:
+        top: 4
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 1s
+      showCPU: true
+      showMem: true
+      showSwp: true
+    power:
+      title: "⚡️"
+      enabled: true
+      position:
+        top: 4
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 15
+    security:
+      title: "🪤"
+      enabled: true
+      position:
+        top: 4
+        left: 2
+        height: 1
+        width: 1
+      refreshInterval: 3600
+    clocks:
+      title: "🕛"
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
+      enabled: true
+      locations:
+      # From https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+        - UTC: "Etc/UTC"
+        - France: "Europe/Paris"
+        - Eastern: "America/New York"
+        - Central: "America/Chicago"
+        - Pacific: "America/Los_Angeles"
+      position:
+        top: 4
+        left: 3
+        height: 1
+        width: 1
+      refreshInterval: 15s
+      # Valid options are: alphabetical, chronological, natural
+      sort: "chronological"
