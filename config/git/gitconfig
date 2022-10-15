@@ -18,3 +18,7 @@
     conflictstyle = diff3
 [diff]
     colorMoved = default
+[user]
+    signingkey = 76AE46A7276674DA!
+[commit]
+    gpgsign = true
