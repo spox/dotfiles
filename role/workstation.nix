@@ -41,6 +41,7 @@ in {
     metal-cli
     miniserve
     netcat
+    nettools
     nmap
     p7zip
     procs
