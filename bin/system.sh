@@ -65,18 +65,8 @@ EOF
     echo "✔"
 
     echo -n "☕ Installing NIX... "
-    if apt-get install -yqq nix-bin 2>&1; then
-        echo "✔"
-    else
-        echo "❌"
-        exit 1
-    fi
-
-    echo -n "🩺 Adding user '${nix_user}' to nix-users group... "
-    if usermod -a -G nix-users "${nix_user}" 2>&1; then
-        echo "✔"
-    else
-        echo "❌"
+    if ! sh <(curl -L https://nixos.org/nix/install) --daemon; then
+        echo "❌ NIX install failed"
         exit 1
     fi
 
