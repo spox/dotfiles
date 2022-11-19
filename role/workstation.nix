@@ -67,6 +67,8 @@ in {
     icr
     lazygit
     nixfmt
+    nodePackages.mermaid-cli
+    osslsigncode
     ripgrep
     shellcheck
     sqlite
@@ -105,6 +107,7 @@ in {
     sunwait # Time of day calculation
     wmctrl
     xclip # copy / paste
+    xdotool # window inspection
     xss-lock # X screenlock
 
     # Applications
@@ -627,8 +630,9 @@ in {
               }
               {
                 class = "trojita";
-                window_role = "Compose Mail";
+                title = "Compose Mail";
               }
+              { class = "systemsettings"; }
               { window_role = "pop-up"; }
               { window_role = "bubble"; }
               { window_role = "task_dialog"; }
