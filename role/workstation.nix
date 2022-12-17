@@ -18,7 +18,7 @@ in {
     python3
     python3Packages.pip
     python3Packages.websocket-client
-    ruby
+    ruby_3_1
 
     # Shell utilities
     awscli
@@ -52,7 +52,8 @@ in {
     zip
 
     # Development things
-    bat
+    bat # cat alternative
+    bats
     coreutils
     delta
     emacs28NativeComp
@@ -106,6 +107,7 @@ in {
     rofi-calc
     rofi-emoji
     sunwait # Time of day calculation
+    thunderbird
     wmctrl
     xclip # copy / paste
     xdotool # window inspection
