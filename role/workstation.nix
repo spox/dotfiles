@@ -21,6 +21,7 @@ in {
     ruby_3_1
 
     # Shell utilities
+    aircrack-ng
     awscli
     bottom
     broot
@@ -36,6 +37,7 @@ in {
     imagemagick
     jq
     keepassxc
+    kismet
     lfs
     lm_sensors
     metal-cli
