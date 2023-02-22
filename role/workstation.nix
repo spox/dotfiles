@@ -33,6 +33,7 @@ in {
     gnutar
     gzip
     heroku
+    hfsprogs
     htop
     imagemagick
     jq
@@ -48,7 +49,9 @@ in {
     nmap
     p7zip
     procs
+    unixtools.nettools
     unzip
+    xar
     xz
     yq
     zip
@@ -56,6 +59,8 @@ in {
     # Development things
     bat # cat alternative
     bats
+    clang
+    cmake
     coreutils
     delta
     emacs28NativeComp
@@ -70,6 +75,8 @@ in {
     helix
     icr
     lazygit
+    msitools
+    mono
     nixfmt
     nodePackages.mermaid-cli
     osslsigncode
