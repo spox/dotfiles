@@ -106,6 +106,8 @@ in {
     conky # System resources monitor
     dunst # Notification daemon
     feh # Background image
+    hunspell # dictionary for vnote
+    hunspellDicts.en-us-large
     i3-gaps # Window manaer
     i3-auto-layout # Automatic optimal tiling
     i3status-rust # Status bar for i3
@@ -470,7 +472,7 @@ in {
         enable = true;
         extraConfig = ''
           exec --no-startup-id wmctrl -c Plasma
-          exec --no-startup-id nixGL picom -cCfb --experimental-backends --config ${config.xdg.configHome}/picom/picom.conf
+          exec --no-startup-id nixGL picom -cCfb --config ${config.xdg.configHome}/picom/picom.conf
           no_focus [class="plasmashell" window_type="notification"]
           for_window [title="Desktop — Plasma"] kill; floating enable; border none
           for_window [title="Bureau — Plasma"] kill; floating enable; border none
