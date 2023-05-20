@@ -14,6 +14,7 @@ in {
     # Language related things
     crystal
     go
+    protobuf
     powershell
     python3
     python3Packages.pip
@@ -27,8 +28,10 @@ in {
     broot
     catimg
     direnv
+    dos2unix
     du-dust
     exa
+    ffmpeg
     gnupg
     gnutar
     gzip
@@ -49,6 +52,7 @@ in {
     nmap
     p7zip
     procs
+    progress
     unixtools.nettools
     unzip
     xar
@@ -74,6 +78,7 @@ in {
     graphviz
     helix
     icr
+    imhex
     lazygit
     msitools
     mono
