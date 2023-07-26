@@ -22,10 +22,12 @@ in {
     ruby_3_1
 
     # Shell utilities
+    act
     aircrack-ng
     awscli
     bottom
     broot
+    caddy
     catimg
     direnv
     dos2unix
@@ -39,6 +41,7 @@ in {
     hfsprogs
     htop
     imagemagick
+    jless
     jq
     keepassxc
     kismet
@@ -53,6 +56,7 @@ in {
     p7zip
     procs
     progress
+    rpm
     unixtools.nettools
     unzip
     xar
@@ -74,6 +78,7 @@ in {
     git
     git-crypt
     gitui
+    gnugrep
     gopls
     graphviz
     helix
@@ -464,6 +469,7 @@ in {
   home.file.".local/bin/default-terminal".source =
     ../config/bin/default-terminal;
   home.file.".local/bin/update-system".source = ../config/bin/update-system;
+  home.file.".local/bin/web-server".source = ../config/bin/web-server;
   home.file.".gitignore_global".source = ../config/git/gitignore_global;
   home.file.".doom.d/config.el".source = ../config/doom/config.el;
   home.file.".doom.d/init.el".source = ../config/doom/init.el;

@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+if [ "${#}" -lt 1 ] || [ "${#}" -gt 2 ]; then
+    printf "Usage: %s DIRECTORY [PORT]\n" "${0}" >&2
+    exit 1
+fi
+
+if ! command -v caddy 2>&1 > /dev/null; then
+    printf "Error: Cannot find required executable 'caddy'\n" >&2
+    exit 1
+fi
+
+directory="${1}"
+port="${2}"
+
+if [ -z "${port}" ]; then
+    port="22339"
+fi
+
+if [ ! -d "${directory}" ]; then
+    printf "Error: Provided path is not a directory (%s)\n" "${directory}" >&2
+    exit 1
+fi
+
+printf "Serving %s on port %s\n" "${directory}" "${port}" >&2
+
+caddy file-server --root "${directory}" --listen ":${port}" --access-log --browse
