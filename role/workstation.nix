@@ -57,7 +57,8 @@ in {
     procs
     progress
     rpm
-    unixtools.nettools
+    sshuttle
+    unixtools.netstat
     unzip
     xar
     xz
@@ -77,6 +78,7 @@ in {
     gnupg
     git
     git-crypt
+    git-extras
     gitui
     gnugrep
     gopls
@@ -155,7 +157,8 @@ in {
       . ${config.xdg.configHome}/bash-aliases/bundler.sh
             . ${config.xdg.configHome}/bash-aliases/copypasta.sh
             . ${config.xdg.configHome}/bash-aliases/git.sh
-            . ${config.xdg.configHome}/bash-aliases/vagrant.sh'';
+            . ${config.xdg.configHome}/bash-aliases/vagrant.sh
+            . ${config.xdg.configHome}/bashrc-extras'';
     bashrcExtra = ". $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh";
     shellAliases = {
       edit = "emacs -nw";
