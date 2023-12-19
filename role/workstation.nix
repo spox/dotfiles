@@ -24,7 +24,7 @@ in {
     # Shell utilities
     act
     aircrack-ng
-    awscli
+    awscli2
     bottom
     broot
     caddy
@@ -32,10 +32,11 @@ in {
     direnv
     dos2unix
     du-dust
-    exa
+    eza
     ffmpeg
     gnupg
     gnutar
+    gotop
     gzip
     heroku
     hfsprogs
@@ -47,6 +48,7 @@ in {
     kismet
     lfs
     lm_sensors
+    localstack
     metal-cli
     miniserve
     netcat
@@ -170,7 +172,7 @@ in {
       l = "ls -F";
       la = "ls -a";
       ll = "ls -alF";
-      ls = "exa --color=auto --icons";
+      ls = "eza --color=auto --icons";
     };
   };
 
