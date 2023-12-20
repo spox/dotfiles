@@ -17,9 +17,7 @@ in {
     protobuf
     powershell
     python3
-    python3Packages.pip
-    python3Packages.websocket-client
-    ruby_3_1
+    ruby_3_3
 
     # Shell utilities
     act
@@ -111,7 +109,12 @@ in {
     # weechat things
     aspell
     aspellDicts.en
-    weechat
+    (weechat.override {
+      configure = { availablePlugins, ... }: {
+        plugins = with availablePlugins;
+          [ (python.withPackages (ps: with ps; [ websocket-client ])) ];
+      };
+    })
     weechatScripts.wee-slack
 
     # Desktop tools
