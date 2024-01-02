@@ -1,10 +1,8 @@
 { config, lib, pkgs, ... }:
 
-let nixgl = import <nixgl> { };
+let nixGL = import ./nixGL.nix { inherit pkgs lib; };
 in {
   home.packages = with pkgs; [
-    nixgl.auto.nixGLDefault
-
     # Lets define our shell related things
     kitty
     tmux
@@ -125,17 +123,17 @@ in {
     feh # Background image
     hunspell # dictionary for vnote
     hunspellDicts.en-us-large
-    i3-gaps # Window manaer
+    (nixGL i3-gaps) # Window manager
     i3-auto-layout # Automatic optimal tiling
     i3status-rust # Status bar for i3
     otpclient # 2FA password generator
-    picom # Composter
+    (nixGL picom) # Composter
     redshift # Color temperature adjustor
-    rofi # Launcher (dmenu replacement)
+    (nixGL rofi) # Launcher (dmenu replacement)
     rofi-calc
     rofi-emoji
     sunwait # Time of day calculation
-    thunderbird
+    (nixGL thunderbird)
     wmctrl
     xclip # copy / paste
     xdotool # window inspection
@@ -143,7 +141,7 @@ in {
 
     # Applications
     chromium
-    firefox
+    (nixGL firefox)
   ];
 
   programs.bash = {
@@ -156,7 +154,7 @@ in {
       IRC_CLIENT = "weechat";
       KDEWM = "${pkgs.i3-gaps}/bin/i3";
       PATH =
-        "$HOME/.nix-profile/bin:$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.local/bin.go:$HOME/.local/go/bin:$HOME/.emacs.d/bin";
+        "$HOME/.nix-profile/bin:$HOME/.local/bin:$PATH:$HOME/bin:$HOME/.local/bin.go:$HOME/.local/go/bin:$HOME/.emacs.d/bin";
     };
     initExtra = ''
       . ${config.xdg.configHome}/bash-aliases/bundler.sh
@@ -171,7 +169,7 @@ in {
       em = "emacs -nw";
       fgrep = "fgrep --color=auto";
       grep = "grep --color=auto";
-      kitty = "nixGL kitty";
+      kitty = "kitty";
       l = "ls -F";
       la = "ls -a";
       ll = "ls -alF";
@@ -181,6 +179,7 @@ in {
 
   programs.chromium = {
     enable = true;
+    package = (nixGL pkgs.chromium);
     extensions = [
       { id = "ncigbofjfbodhkaffojakplpmnleeoee"; } # Animation Policy
       { id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa"; } # 1password
@@ -234,6 +233,7 @@ in {
 
   programs.kitty = {
     enable = true;
+    package = (nixGL pkgs.kitty);
     settings = {
       font_family = "Noto Mono";
       bold_font = "auto";
@@ -478,6 +478,8 @@ in {
     ../config/bin/default-terminal;
   home.file.".local/bin/update-system".source = ../config/bin/update-system;
   home.file.".local/bin/web-server".source = ../config/bin/web-server;
+  home.file.".local/bin/local-exec".source = ../config/bin/local-exec;
+  home.file.".local/bin/xdg-open".source = ../config/bin/xdg-open;
   home.file.".gitignore_global".source = ../config/git/gitignore_global;
   home.file.".doom.d/config.el".source = ../config/doom/config.el;
   home.file.".doom.d/init.el".source = ../config/doom/init.el;
@@ -491,7 +493,7 @@ in {
         enable = true;
         extraConfig = ''
           exec --no-startup-id wmctrl -c Plasma
-          exec --no-startup-id nixGL picom -cCfb --config ${config.xdg.configHome}/picom/picom.conf
+          exec --no-startup-id picom -cCfb --config ${config.xdg.configHome}/picom/picom.conf
           no_focus [class="plasmashell" window_type="notification"]
           for_window [title="Desktop — Plasma"] kill; floating enable; border none
           for_window [title="Bureau — Plasma"] kill; floating enable; border none
