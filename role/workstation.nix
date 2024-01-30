@@ -15,7 +15,7 @@ in {
     protobuf
     powershell
     python3
-    ruby_3_3
+    ruby_3_2
 
     # Shell utilities
     act
@@ -82,13 +82,16 @@ in {
     gopls
     graphviz
     helix
+    iconv
     icr
     imhex
     lazygit
+    libffi
     msitools
     mono
     nixfmt
     nodePackages.mermaid-cli
+    openssl
     osslsigncode
     ripgrep
     shellcheck
@@ -127,6 +130,7 @@ in {
     i3-auto-layout # Automatic optimal tiling
     i3status-rust # Status bar for i3
     otpclient # 2FA password generator
+    (nixGL nyxt) # Browser
     (nixGL picom) # Composter
     redshift # Color temperature adjustor
     (nixGL rofi) # Launcher (dmenu replacement)
@@ -154,7 +158,7 @@ in {
       IRC_CLIENT = "weechat";
       KDEWM = "${pkgs.i3-gaps}/bin/i3";
       PATH =
-        "$HOME/.nix-profile/bin:$HOME/.local/bin:$PATH:$HOME/bin:$HOME/.local/bin.go:$HOME/.local/go/bin:$HOME/.emacs.d/bin";
+        "$HOME/.nix-profile/bin:$HOME/.local/bin:$PATH:$HOME/bin:$HOME/.local/bin.go:$HOME/.local/go/bin:$HOME/.config/emacs/bin";
     };
     initExtra = ''
       . ${config.xdg.configHome}/bash-aliases/bundler.sh
