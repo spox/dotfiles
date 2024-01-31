@@ -483,7 +483,6 @@ in {
   home.file.".local/bin/update-system".source = ../config/bin/update-system;
   home.file.".local/bin/web-server".source = ../config/bin/web-server;
   home.file.".local/bin/local-exec".source = ../config/bin/local-exec;
-  home.file.".local/bin/xdg-open".source = ../config/bin/xdg-open;
   home.file.".gitignore_global".source = ../config/git/gitignore_global;
   home.file.".doom.d/config.el".source = ../config/doom/config.el;
   home.file.".doom.d/init.el".source = ../config/doom/init.el;
