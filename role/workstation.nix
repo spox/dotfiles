@@ -16,6 +16,7 @@ in {
     powershell
     python3
     ruby_3_2
+    swift
 
     # Shell utilities
     act
@@ -44,7 +45,6 @@ in {
     kismet
     lfs
     lm_sensors
-    localstack
     metal-cli
     miniserve
     netcat
@@ -144,7 +144,7 @@ in {
     xss-lock # X screenlock
 
     # Applications
-    chromium
+    (nixGL chromium)
     (nixGL firefox)
   ];
 
@@ -165,7 +165,8 @@ in {
             . ${config.xdg.configHome}/bash-aliases/copypasta.sh
             . ${config.xdg.configHome}/bash-aliases/git.sh
             . ${config.xdg.configHome}/bash-aliases/vagrant.sh
-            . ${config.xdg.configHome}/bashrc-extras'';
+            . ${config.xdg.configHome}/bashrc-extras
+            . ${config.xdg.configHome}/nixGL-unset'';
     bashrcExtra = ". $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh";
     shellAliases = {
       edit = "emacs -nw";
@@ -692,6 +693,7 @@ in {
     "bash-aliases/copypasta.sh".source = ../config/bash/aliases/copypasta.sh;
     "bash-aliases/git.sh".source = ../config/bash/aliases/git.sh;
     "bash-aliases/vagrant.sh".source = ../config/bash/aliases/vagrant.sh;
+    "nixGL-unset".source = ../config/bash/nixGL-unset;
     "conky/conkyrc".source = ../config/conky/conkyrc;
     "conky/draw_bg.lua".source = ../config/conky/draw_bg.lua;
     "gh/config.yml".source = ../config/gh/config.yml;

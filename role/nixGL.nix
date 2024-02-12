@@ -16,10 +16,10 @@ in pkgs.buildEnv {
         fi
       done < "${nixGL.auto.nixGLDefault}/bin/nixGL"
       shopt -u extglob
-      export -n LIBGL_DRIVERS_PATH
-      export -n LIBVA_DRIVERS_PATH
-      export -n __EGL_VENDOR_LIBRARY_FILENAMES
-      export -n LD_LIBRARY_PATH
+      # export -n LIBGL_DRIVERS_PATH
+      # export -n LIBVA_DRIVERS_PATH
+      # export -n __EGL_VENDOR_LIBRARY_FILENAMES
+      # export -n LD_LIBRARY_PATH
       exec -a "$0" "${bins}/${bin}" "$@"
     '')) (builtins.attrNames (builtins.readDir bins)));
   meta.priority = 1;

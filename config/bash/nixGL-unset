@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+export -n LIBGL_DRIVERS_PATH
+export -n LIBVA_DRIVERS_PATH
+export -n __EGL_VENDOR_LIBRARY_FILENAMES
+export -n LD_LIBRARY_PATH
