@@ -16,14 +16,15 @@ in {
     powershell
     python3
     ruby_3_2
-    swift
 
     # Shell utilities
     act
     aircrack-ng
     awscli2
+    bandwhich
     bottom
     broot
+    btop
     caddy
     catimg
     direnv
@@ -48,6 +49,7 @@ in {
     metal-cli
     miniserve
     netcat
+    nethogs
     nettools
     nix-direnv
     nmap
