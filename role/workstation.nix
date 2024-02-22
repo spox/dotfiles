@@ -749,6 +749,14 @@ in {
     "wallpapers/day/40.jpg".source = ../config/wallpapers/day/40.jpg;
     "wallpapers/day/41.jpg".source = ../config/wallpapers/day/41.jpg;
     "wallpapers/day/42.jpg".source = ../config/wallpapers/day/42.jpg;
+    "wallpapers/day/43.png".source = ../config/wallpapers/day/43.png;
+    "wallpapers/day/44.png".source = ../config/wallpapers/day/44.png;
+    "wallpapers/day/45.webp".source = ../config/wallpapers/day/45.webp;
+    "wallpapers/day/46.webp".source = ../config/wallpapers/day/46.webp;
+    "wallpapers/day/47.jpg".source = ../config/wallpapers/day/47.jpg;
+    "wallpapers/day/48.jpg".source = ../config/wallpapers/day/48.jpg;
+    "wallpapers/day/49.jpg".source = ../config/wallpapers/day/49.jpg;
+    "wallpapers/day/50.jpg".source = ../config/wallpapers/day/50.jpg;
     "wallpapers/night/01.jpg".source = ../config/wallpapers/night/01.jpg;
     "wallpapers/night/02.jpg".source = ../config/wallpapers/night/02.jpg;
     "wallpapers/night/03.jpg".source = ../config/wallpapers/night/03.jpg;
@@ -774,6 +782,23 @@ in {
     "wallpapers/night/23.jpg".source = ../config/wallpapers/night/23.jpg;
     "wallpapers/night/24.jpg".source = ../config/wallpapers/night/24.jpg;
     "wallpapers/night/25.jpg".source = ../config/wallpapers/night/25.jpg;
+    "wallpapers/night/51.jpg".source = ../config/wallpapers/night/51.jpg;
+    "wallpapers/night/52.webp".source = ../config/wallpapers/night/52.webp;
+    "wallpapers/night/53.webp".source = ../config/wallpapers/night/53.webp;
+    "wallpapers/night/54.png".source = ../config/wallpapers/night/54.png;
+    "wallpapers/night/55.webp".source = ../config/wallpapers/night/55.webp;
+    "wallpapers/night/56.png".source = ../config/wallpapers/night/56.png;
+    "wallpapers/night/57.webp".source = ../config/wallpapers/night/57.webp;
+    "wallpapers/night/58.webp".source = ../config/wallpapers/night/58.webp;
+    "wallpapers/night/59.jpg".source = ../config/wallpapers/night/59.jpg;
+    "wallpapers/night/60.png".source = ../config/wallpapers/night/60.png;
+    "wallpapers/night/61.webp".source = ../config/wallpapers/night/61.webp;
+    "wallpapers/night/62.jpg".source = ../config/wallpapers/night/62.jpg;
+    "wallpapers/night/63.jpg".source = ../config/wallpapers/night/63.jpg;
+    "wallpapers/night/64.jpg".source = ../config/wallpapers/night/64.jpg;
+    "wallpapers/night/65.web".source = ../config/wallpapers/night/65.webp;
+    "wallpapers/night/66.webp".source = ../config/wallpapers/night/66.webp;
+    "wallpapers/night/67.jpg".source = ../config/wallpapers/night/67.jpg;
 
     "xmodmap".source = ../config/caps-xmodmap;
   };
