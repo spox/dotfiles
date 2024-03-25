@@ -123,19 +123,19 @@ in {
     # Desktop tools
     arandr # Define monitor layout
     autorandr # Automatically update monitor layouts
-    conky # System resources monitor
-    dunst # Notification daemon
+    (nixGL conky) # System resources monitor
+    (nixGL dunst) # Notification daemon
     feh # Background image
     hunspell # dictionary for vnote
     hunspellDicts.en-us-large
     (nixGL i3-gaps) # Window manager
-    i3-auto-layout # Automatic optimal tiling
-    i3status-rust # Status bar for i3
+    (nixGL i3-auto-layout) # Automatic optimal tiling
+    (nixGL i3status-rust) # Status bar for i3
     otpclient # 2FA password generator
     (nixGL nyxt) # Browser
     (nixGL picom) # Composter
-    redshift # Color temperature adjustor
-    (nixGL rofi) # Launcher (dmenu replacement)
+    (nixGL redshift) # Color temperature adjustor
+    rofi # Launcher (dmenu replacement)
     rofi-calc
     rofi-emoji
     sunwait # Time of day calculation
@@ -630,7 +630,7 @@ in {
             "${mod}+m" = "focus floating; mode move";
             # Launch a program
             "${mod}+d" = "exec rofi -modi run -show";
-            # Launch and application
+            # Launch an application
             "${mod}+x" = "exec rofi -modi drun -show";
             # List windows
             "${mod}+Shift+d" = "exec rofi -modi window -show";
