@@ -16,6 +16,7 @@ in {
     powershell
     python3
     ruby_3_2
+    nodePackages.typescript-language-server
 
     # Shell utilities
     act
@@ -95,6 +96,7 @@ in {
     nodePackages.mermaid-cli
     openssl
     osslsigncode
+    redis
     ripgrep
     shellcheck
     sqlite
