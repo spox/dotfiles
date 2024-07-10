@@ -1,6 +1,7 @@
 [user]
 	name = Chris Roberts
 	email = code@chrisroberts.org
+    signingkey = /home/spox/.ssh/id_rsa.pub
 [core]
 	excludesfile = /home/spox/.gitignore_global
 	pager = delta
@@ -18,7 +19,5 @@
     conflictstyle = diff3
 [diff]
     colorMoved = default
-[user]
-    signingkey = 76AE46A7276674DA!
 [commit]
     gpgsign = true

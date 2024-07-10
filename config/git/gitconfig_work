@@ -1,6 +1,7 @@
 [user]
 	name = Chris Roberts
 	email = croberts@hashicorp.com
+    signingkey = /home/spox/.ssh/id_rsa.pub
 [gpg]
     format = ssh
 [core]
@@ -22,3 +23,5 @@
     colorMoved = default
 [submodule]
     recurse = true
+[commit]
+    gpgsign = true
