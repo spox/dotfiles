@@ -503,7 +503,7 @@ in {
           exec --no-startup-id wmctrl -c Plasma
           exec --no-startup-id picom -cCfb --config ${config.xdg.configHome}/picom/picom.conf
           no_focus [class="plasmashell" window_type="notification"]
-          for_window [title="Desktop — Plasma"] kill; floating enable; border none
+          for_window [title="Desktop.* — Plasma"] kill; floating enable; border none
           for_window [title="Bureau — Plasma"] kill; floating enable; border none
           exec --no-startup-id ~/.config/scripts/wallpaper_changer_dynamic.sh
         '';
