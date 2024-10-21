@@ -3,6 +3,10 @@
 let nixGL = import ./nixGL.nix { inherit pkgs lib; };
 in {
   home.packages = with pkgs; [
+    # Libraries
+    libffi
+    zlib
+
     # Lets define our shell related things
     kitty
     tmux
@@ -49,6 +53,7 @@ in {
     lm_sensors
     metal-cli
     miniserve
+    mise
     netcat
     nethogs
     nettools
@@ -89,6 +94,7 @@ in {
     icr
     imhex
     lazygit
+    libarchive
     libffi
     msitools
     mono
@@ -204,6 +210,11 @@ in {
     enable = true;
     enableBashIntegration = true;
     nix-direnv = { enable = true; };
+  };
+
+  programs.mise = {
+    enable = true;
+    enableBashIntegration = true;
   };
 
   programs.go = {
