@@ -16,6 +16,7 @@ in {
     # Language related things
     crystal
     go
+    jdk
     protobuf
     powershell
     python3
@@ -39,6 +40,7 @@ in {
     ffmpeg
     gnupg
     gnutar
+    gomplate
     gotop
     gzip
     heroku
@@ -60,6 +62,7 @@ in {
     nix-direnv
     nmap
     p7zip
+    postgresql
     procs
     progress
     rpm
@@ -68,7 +71,7 @@ in {
     unzip
     xar
     xz
-    yq
+    yq-go
     zip
 
     # Development things
