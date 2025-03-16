@@ -22,6 +22,7 @@ in {
     python3
     ruby_3_2
     nodePackages.typescript-language-server
+    swift
 
     # Shell utilities
     act
@@ -118,7 +119,7 @@ in {
     neofetch
     qrencode # Create QR
     whois
-    wtf
+    wtfutil
 
     # weechat things
     aspell
