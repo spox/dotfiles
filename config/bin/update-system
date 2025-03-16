@@ -29,7 +29,7 @@ if ! nix-channel --update; then
     exit 1
 fi
 
-if ! home-manager build; then
+if ! home-manager switch; then
     echo "ERROR: Failed to build updated user configuration"
     exit 1
 fi

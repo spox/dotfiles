@@ -81,7 +81,7 @@ in {
     cmake
     coreutils
     delta
-    emacs28NativeComp
+    emacs
     fd
     gh
     gnupg
@@ -110,7 +110,7 @@ in {
     shellcheck
     sqlite
     ssh-audit
-    terraform
+#    terraform
     tig
 
     # Shell usability things
