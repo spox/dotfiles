@@ -22,7 +22,6 @@ in {
     python3
     ruby_3_2
     nodePackages.typescript-language-server
-    swift
 
     # Shell utilities
     act
@@ -84,6 +83,7 @@ in {
     delta
     emacs
     fd
+    (hiPrio gcc)
     gh
     gnupg
     git
@@ -111,7 +111,6 @@ in {
     shellcheck
     sqlite
     ssh-audit
-#    terraform
     tig
 
     # Shell usability things
