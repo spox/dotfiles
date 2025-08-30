@@ -21,6 +21,7 @@ in {
     powershell
     python3
     ruby_3_2
+    shards
     nodePackages.typescript-language-server
 
     # Shell utilities
