@@ -120,6 +120,8 @@ in {
     qrencode # Create QR
     whois
     wtfutil
+    _1password-gui
+    _1password-cli
 
     # weechat things
     aspell
