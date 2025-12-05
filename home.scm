@@ -176,6 +176,8 @@
                            (".config/waybar/scripts/openweathermap.sh" ,(local-file "config/waybar-scripts/openweathermap.sh" #:recursive? #t))
                            (".config/waybar/scripts/update_system.sh" ,(local-file "config/waybar-scripts/update_system.sh" #:recursive? #t))
                            (".config/waybar/scripts/vpn_status.sh" ,(local-file "config/waybar-scripts/vpn_status.sh" #:recursive? #t))
+                           (".config/sway/config.d/locker" ,(local-file(cond ((equal? role "work") "config/sway/gnome-locker")
+                                                           (else "config/sway/default-locker"))))                           
                            (".face.icon" ,(local-file(cond ((equal? role "work") "config/face/work.jpg")
                                   (else "config/face/personal.jpg"))))))                
                 (service home-dbus-service-type)

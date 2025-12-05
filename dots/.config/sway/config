@@ -12,10 +12,15 @@ set $right semicolon
 set $term kitty
 
 # SwayFX
+default_dim_inactive 0.1
 blur enable
 shadows enable
-shadows_on_csd on
-corner_radius 1
+dim_inactive_colors.unfocused #0000ff
+
+# blur enable
+# shadows enable
+# shadows_on_csd on
+# corner_radius 1
 
 # Settings
 default_border pixel 2
@@ -81,12 +86,6 @@ for_window [title = "Firefox — Sharing Indicator"] kill
 for_window [class = "zoom"] floating enable
 
 for_window [shell="xwayland"] title_format "%title [XWayland]"
-
-# Idle configuration
-exec swayidle -w \
-    timeout 2400 'swaylock --config ~/.config/swaylock/config' \
-    timeout 3600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-    before-sleep 'swaylock -f --config ~/.config/swaylock/config'
 
 # Idle inhibitors. Not needed now (or for firefox) but
 # looks like it would be useful for others
@@ -275,3 +274,5 @@ exec wlsunset -l 45.1722 -L -122.201
 # Screen Sharing https://lists.gnu.org/archive/html/help-guix/2025-03/msg00092.html
 # exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+include config.d/*
