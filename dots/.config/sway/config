@@ -11,17 +11,6 @@ set $right semicolon
 # Terminal
 set $term kitty
 
-# SwayFX
-default_dim_inactive 0.1
-blur enable
-shadows enable
-dim_inactive_colors.unfocused #0000ff
-
-# blur enable
-# shadows enable
-# shadows_on_csd on
-# corner_radius 1
-
 # Settings
 default_border pixel 2
 default_floating_border pixel 1
@@ -274,5 +263,36 @@ exec wlsunset -l 45.1722 -L -122.201
 # Screen Sharing https://lists.gnu.org/archive/html/help-guix/2025-03/msg00092.html
 # exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+# SwayFX
+
+layer_effects "waybar" blur enable; shadows disable;
+layer_effects "gtk-layer-shell" blur enable; shadows enable; corner_radius 13
+layer_effects "rofi" blur enable; shadows enable; corner_radius 13
+
+smart_corner_radius enable
+corner_radius 10
+shadows enable
+shadows_on_csd enable
+shadow_blur_radius 20
+shadow_inactive_color "#0000007F"
+
+blur enable
+blur_xray disable
+blur_passes 4
+blur_radius 4
+
+dim_inactive_colors.unfocused  "#000000FF"
+dim_inactive_colors.urgent "#900000FF"
+
+#default_dim_inactive 0.1
+#blur enable
+#shadows enable
+#dim_inactive_colors.unfocused #0000ff
+
+# blur enable
+# shadows enable
+# shadows_on_csd on
+# corner_radius 1
 
 include config.d/*
