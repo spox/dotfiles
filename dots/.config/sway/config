@@ -1,0 +1,277 @@
+# Variables
+# logo key. Mod1 is alt.
+set $mod Mod4
+
+# Home row direction keys, like vim
+set $left j
+set $down k
+set $up l
+set $right semicolon
+
+# Terminal
+set $term kitty
+
+# SwayFX
+blur enable
+shadows enable
+shadows_on_csd on
+corner_radius 1
+
+# Settings
+default_border pixel 2
+default_floating_border pixel 1
+hide_edge_borders smart
+floating_modifier $mod normal
+focus_follows_mouse yes
+focus_wrapping yes
+focus_on_window_activation smart
+mouse_warping output
+workspace_layout default
+workspace_auto_back_and_forth yes
+gaps inner 4
+gaps outer 0
+smart_gaps on
+smart_borders on
+seat seat0 hide_cursor 3000
+
+# Set wallpaper to generic path to make it easily swappable
+output "*" bg ~/.config/wallpaper fill
+
+# Cursor theme
+# TODO: what should this be?
+seat * xcursor_theme Adwaita 24
+
+# Theme for Gnome-apps - managed by darkman
+# Cursor and icon settings remain static
+# Check what to do with this? No darkman used here.
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema icon-theme 'Yaru'
+    gsettings set $gnome-schema cursor-theme 'Adwaita'
+    gsettings set $gnome-schema font-name 'Noto Sans 9'
+}
+
+### Auto-float
+#
+# for_window [app_id = "[.]*"] floating enable
+#
+# https://wiki.gentoo.org/wiki/Sway
+for_window [window_role = "pop-up"] floating enable
+for_window [window_role = "bubble"] floating enable
+for_window [window_role = "dialog"] floating enable
+for_window [window_role = "task_dialog"] floating enable
+for_window [window_role = "Preferences"] floating enable
+for_window [window_role = "About"] floating enable
+for_window [window_role = "menu"] floating enable
+for_window [window_role = "task_dialog"] floating enable
+
+for_window [window_type = "dialog"] floating enable
+for_window [window_type = "menu"] floating enable
+
+for_window [app_id = "floating"] floating enable
+for_window [app_id = "floating_update"] floating enable, resize set width 1000px height 600px
+for_window [title = "Administrator privileges required"] floating enable
+
+for_window [title = "About Mozilla Firefox"] floating enable
+
+# TODO: what are these?
+for_window [title = "Firefox - Sharing Indicator"] kill
+for_window [title = "Firefox — Sharing Indicator"] kill
+
+for_window [class = "zoom"] floating enable
+
+for_window [shell="xwayland"] title_format "%title [XWayland]"
+
+# Idle configuration
+exec swayidle -w \
+    timeout 2400 'swaylock --config ~/.config/swaylock/config' \
+    timeout 3600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock -f --config ~/.config/swaylock/config'
+
+# Idle inhibitors. Not needed now (or for firefox) but
+# looks like it would be useful for others
+# xwayland version
+#for_window [class="Firefox"] inhibit_idle fullscreen
+# wayland vesion
+#for_window [app_id="firefox"] inhibit_idle fullscreen
+
+# Input configuration
+input type:touchpad {
+    tap disabled
+    dwt enabled
+    accel_profile "flat" # disable mouse acceleration (enabled by default; to set it manually, use "adaptive" instead of "flat")
+    pointer_accel 0.7 # set mouse sensitivity (between -1 and 1)
+}
+
+# Make the caps key a ctrl key
+# TODO: need to have this be dependent on screen/keyboard if possible
+
+# Enable swaybar
+bar {
+	swaybar_command waybar
+}
+
+# Start a terminal
+bindsym $mod+Return exec $term
+
+# Kill focused window
+bindsym $mod+q kill
+
+# Bail
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -B 'Yes, exit sway' 'swaymsg exit'
+
+# Application launcher
+bindsym $mod+d exec rofi -modi run -show
+# Program launcher
+bindsym $mod+x exec rofi -modi drun -show
+# Window finder
+bindsym $mod+Shift+d exec rofi -modi window -show
+# Fuzzel to work around broken rofi
+bindsym $mod+z exec fuzzel
+
+# Reload configuration
+bindsym $mod+Shift+c reload
+
+# Restart sway
+bindsym $mod+Shift+r restart
+
+# Toggles
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+s sticky toggle
+bindsym $mod+e layout toggle split
+bindsym $mod+b border toggle
+
+# Scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+Shift+plus scratchpad show
+
+# Containers
+bindsym $mod+r mode resize
+bindsym $mod+f fullscreen
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+# Layouts
+bindsym $mod+w layout tabbed
+bindsym $mod+s layout stacking
+
+# Jump to workspaces
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# Move container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# Change focus
+bindsym $mod+Left focus left
+bindsym $mod+Right focus right
+bindsym $mod+Up focus up
+bindsym $mod+Down focus down
+bindsym $mod+$left focus left
+bindsym $mod+$right focus right
+bindsym $mod+$up focus up
+bindsym $mod+$down focus down
+
+bindsym $mod+a focus parent
+bindsym $mod+Shift+a focus child
+
+bindsym $mod+space focus mode_toggle
+
+# Move container in workspace
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$down move down
+
+mode "move" {
+  bindsym Escape mode default
+  bindsym Return mode default
+  bindsym Down move down 20 px
+  bindsym Up move up 20 px
+  bindsym Left move left 20 px
+  bindsym Right move right 20 px
+  bindsym $down move down 20 px
+  bindsym $up move up 20 px
+  bindsym $left move left 20 px
+  bindsym $right move right 20 px
+}
+
+mode "resize" {
+  bindsym Escape mode default
+  bindsym Return mode default
+  bindsym Left resize shrink width 20 px
+  bindsym Right resize grow width 20 px
+  bindsym Up resize grow height 20 px
+  bindsym Down resize shrink height 20 px
+  bindsym $left resize shrink width 20 px
+  bindsym $right resize grow width 20 px
+  bindsym $up resize grow height 20 px
+  bindsym $down resize shrink height 20 px
+}
+
+# Screenshots
+bindsym Print exec grim - | swappy -f -
+
+# Laptop function keys
+# TODO: Check that these work. Match up to actual buttons.
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+    
+bindsym XF86AudioRaiseVolume exec pamixer -u -i 2
+bindsym XF86AudioLowerVolume exec pamixer -d 2
+bindsym XF86AudioMute exec pamixer -t
+bindsym XF86AudioMicMute exec pamixer --default-source -t
+
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Start all the stuff we want running.
+
+# Display management
+# .config/kanshi/config
+exec kanshi
+
+# Clipboard
+# exec wl-paste -t text --watch clipman store --no-persist
+exec wl-paste --watch clipman store --no-persist
+
+# Disk mounting
+exec udiskie
+
+# Polkit authentication agent
+exec lxqt-policykit-agent
+
+# daemon that provides settings to Xorg applications
+exec xsettingsd
+
+# start/stop audio
+exec playerctld daemon
+
+# Night Light (LIS lat/long)
+exec wlsunset -l 45.1722 -L -122.201
+
+# Screen Sharing https://lists.gnu.org/archive/html/help-guix/2025-03/msg00092.html
+# exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway

@@ -1,0 +1,22 @@
+# Extend history
+HISTCONTROL=ignoredups:ignorespace
+HISTFILESIZE=100000
+HISTSIZE=10000
+
+# Set some options
+shopt -s histappend
+shopt -s checkwinsize
+shopt -s extglob
+shopt -s globstar
+shopt -s checkjobs
+
+# Make doom available on the path
+export PATH="${PATH}:~/.config/emacs/bin"
+
+# Load up all the tools that need initialization
+# direnv
+eval "$(direnv hook bash)"
+# starship
+eval "$(starship init bash --print-full-init)"
+# zoxide
+eval "$(zoxide init bash)"

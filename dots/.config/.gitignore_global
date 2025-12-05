@@ -1,0 +1,9 @@
+.ruby-bundle
+*.deb
+*.gem
+*.msi
+*.rpm
+*.xz
+.envrc
+.bundle
+.*~

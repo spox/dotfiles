@@ -1,0 +1,12 @@
+alias vsnaps='vagrant snapshot list'
+alias vsnap='vagrant snapshot take'
+alias vup="vagrant up"
+alias vupl="vagrant up 2>&1 | tee vagrant.log"
+alias vh="vagrant halt"
+alias vs="vagrant suspend"
+alias vr="vagrant resume"
+alias vrl="vagrant reload"
+alias vssh="vagrant ssh"
+alias vst="vagrant status"
+alias vp="vagrant provision"
+alias vd="vagrant destroy"
