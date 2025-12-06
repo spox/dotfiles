@@ -68,7 +68,7 @@
     "gopls"
     "graphviz"
     "imhex"
-    "jj-vcs"
+    "jujutsu"
     "ripgrep"
     "shellcheck"
     "tig"
