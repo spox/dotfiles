@@ -65,7 +65,10 @@ for_window [window_type = "menu"] floating enable
 for_window [app_id = "floating"] floating enable
 for_window [app_id = "floating_update"] floating enable, resize set width 1000px height 600px
 for_window [title = "Administrator privileges required"] floating enable
-
+for_window [app_id = ".udiskie-real"] floating enable, resize set width 600px height 600px
+for_window [app_id = "org.pulseaudio.pavucontrol"] floating enable, resize set width 600px height 600px
+for_window [app_id = "nm-connection-editor"] floating enable, resize set width 600px height 600px
+for_window [app_id = ".blueman-manager-real"] floating enable, resize set width 600px height 600px
 for_window [title = "About Mozilla Firefox"] floating enable
 
 # TODO: what are these?
@@ -263,9 +266,9 @@ exec wlsunset -l 45.1722 -L -122.201
 # Screen Sharing https://lists.gnu.org/archive/html/help-guix/2025-03/msg00092.html
 # exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+#exec dbus-update-activation-environment --systemd DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 # SwayFX
-
 layer_effects "waybar" blur enable; shadows disable;
 layer_effects "gtk-layer-shell" blur enable; shadows enable; corner_radius 13
 layer_effects "rofi" blur enable; shadows enable; corner_radius 13
@@ -279,8 +282,8 @@ shadow_inactive_color "#0000007F"
 
 blur enable
 blur_xray disable
-blur_passes 4
-blur_radius 4
+blur_passes 2
+blur_radius 3
 
 dim_inactive_colors.unfocused  "#000000FF"
 dim_inactive_colors.urgent "#900000FF"

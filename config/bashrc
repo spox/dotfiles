@@ -10,13 +10,51 @@ shopt -s extglob
 shopt -s globstar
 shopt -s checkjobs
 
+# Set default env vars
+export GOBIN="${HOME}/.local/bin"
+export GOPATH="${HOME}/.local/go"
+export EDITOR="emacs -nw"
+export GIT_EDITOR="emacs -nw"
+
+# If we are running in sway, set some stuff
+if [ -n "${SWAYSOCK}" ]; then
+   export QT_QPA_PLATFORM="wayland;xcb"
+   export SDL_VIDEODRIVER="wayland"
+   export XDG_CURRENT_DESKTOP="sway"
+   export XDG_SESSION_DESKTOP="sway"
+   export XDG_SESSION_TYPE="wayland"
+   export MOZ_ENABLE_WAYLAND="1"
+   export GDK_BACKEND="wayland"
+   export CLUTTER_BACKEND="wayland"
+   export XCURSOR_THEME="Adwaita"
+   export XCURSOR_SIZE="24"
+   export GUIX_LOCPATH="${HOME}/.guix-profile/lib/locale"
+   export SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt"
+   export CA_CERT_BUNDLE="/etc/ssl/certs/ca-certificates.crt"
+fi
+
 # Make doom available on the path
-export PATH="${PATH}:~/.config/emacs/bin"
+export PATH="${PATH}:${HOME}/.config/emacs/bin:${HOME}/.local/bin"
 
 # Load up all the tools that need initialization
 # direnv
-eval "$(direnv hook bash)"
+if command -v direnv > /dev/null 2>&1; then 
+   eval "$(direnv hook bash)"
+fi
 # starship
-eval "$(starship init bash --print-full-init)"
+if command -v starship > /dev/null 2>&1; then
+  eval "$(starship init bash --print-full-init)"
+fi
 # zoxide
-eval "$(zoxide init bash)"
+if command -v zoxide > /dev/null 2>&1; then 
+  eval "$(zoxide init bash)"
+fi
+# mise
+if command -v mise > /dev/null 2>&1; then
+  eval "$(mise activate bash)"
+fi
+# eza
+if command -v eza > /dev/null 2>&1; then
+  alias ls="eza --color=auto --icons" 
+fi
+

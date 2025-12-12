@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+. "/home/spox/.config/guix/zzz-guix.sh"
+
+HOME_ENVIRONMENT=$HOME/.guix-home
+. $HOME_ENVIRONMENT/setup-environment
+$HOME_ENVIRONMENT/on-first-login
+unset HOME_ENVIRONMENT
+
+sway > /home/spox/.local/sway.log  2>&1
