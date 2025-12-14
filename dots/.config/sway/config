@@ -69,6 +69,7 @@ for_window [app_id = ".udiskie-real"] floating enable, resize set width 600px he
 for_window [app_id = "org.pulseaudio.pavucontrol"] floating enable, resize set width 600px height 600px
 for_window [app_id = "nm-connection-editor"] floating enable, resize set width 600px height 600px
 for_window [app_id = ".blueman-manager-real"] floating enable, resize set width 600px height 600px
+for_window [app_id = "remote-viewer"] floating enable, resize set width 1024px height 768px
 for_window [title = "About Mozilla Firefox"] floating enable
 
 # TODO: what are these?
