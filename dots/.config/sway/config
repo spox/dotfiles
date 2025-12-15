@@ -119,7 +119,7 @@ bindsym $mod+x exec rofi -modi drun -show
 # Window finder
 bindsym $mod+Shift+d exec rofi -modi window -show
 # Fuzzel to work around broken rofi
-bindsym $mod+z exec fuzzel
+bindsym $mod+y exec fuzzel
 
 # Reload configuration
 bindsym $mod+Shift+c reload
@@ -223,7 +223,7 @@ mode "resize" {
 }
 
 # Screenshots
-bindsym Print exec grim - | swappy -f -
+bindsym $mod+Shift+Print exec grim -l 2 -g "$(slurp -d)" - | swappy -o "${HOME}/Pictures/shot-$(date '+%s').png" -f -
 
 # Laptop function keys
 # TODO: Check that these work. Match up to actual buttons.
@@ -238,36 +238,6 @@ bindsym XF86AudioMicMute exec pamixer --default-source -t
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-
-# Start all the stuff we want running.
-
-# Display management
-# .config/kanshi/config
-exec kanshi
-
-# Clipboard
-# exec wl-paste -t text --watch clipman store --no-persist
-exec wl-paste --watch clipman store --no-persist
-
-# Disk mounting
-exec udiskie
-
-# Polkit authentication agent
-exec lxqt-policykit-agent
-
-# daemon that provides settings to Xorg applications
-exec xsettingsd
-
-# start/stop audio
-exec playerctld daemon
-
-# Night Light (LIS lat/long)
-exec wlsunset -l 45.1722 -L -122.201
-
-# Screen Sharing https://lists.gnu.org/archive/html/help-guix/2025-03/msg00092.html
-# exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-#exec dbus-update-activation-environment --systemd DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 # SwayFX
 layer_effects "waybar" blur enable; shadows disable;
@@ -299,4 +269,37 @@ dim_inactive_colors.urgent "#900000FF"
 # shadows_on_csd on
 # corner_radius 1
 
+# Load any customizations
 include config.d/*
+
+# Start all the stuff we want running.
+
+# Display management
+# .config/kanshi/config
+exec kanshi
+
+# Clipboard
+# exec wl-paste -t text --watch clipman store --no-persist
+exec wl-paste --watch clipman store --no-persist
+
+# Disk mounting
+exec udiskie
+
+# Polkit authentication agent
+exec lxqt-policykit-agent
+
+# Start the wlroots portal
+exec /usr/libexec/xdg-desktop-portal-wlr
+
+# daemon that provides settings to Xorg applications
+exec xsettingsd
+
+# start/stop audio
+exec playerctld daemon
+
+# Night Light (LIS lat/long)
+exec wlsunset -l 45.1722 -L -122.201
+
+# Screen Sharing https://lists.gnu.org/archive/html/help-guix/2025-03/msg00092.html
+exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec dbus-update-activation-environment --systemd DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway

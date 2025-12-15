@@ -124,7 +124,8 @@
     "xsettingsd" ;; settings for x windows
     "swaynotificationcenter" ;; toasts
     "blueman" ;; bluetooth manager
-
+    "yaru-theme" ;; icons
+    "adwaita-icon-theme" ;; cursor
 
 
     "date"
@@ -145,7 +146,7 @@
   (append (list (service home-bash-service-type
                          (home-bash-configuration
                           (bashrc (list (local-file "config/bashrc")
-                                        (local-file "config/bash-aliases/default.sh")
+                                        (local-file "config/bash-aliases/base.sh")
                                         (local-file "config/bash-aliases/bundler.sh")
                                         (local-file "config/bash-aliases/copypasta.sh")
                                         (local-file "config/bash-aliases/git.sh")
