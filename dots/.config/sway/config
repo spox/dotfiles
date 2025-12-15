@@ -288,9 +288,6 @@ exec udiskie
 # Polkit authentication agent
 exec lxqt-policykit-agent
 
-# Start the wlroots portal
-exec /usr/libexec/xdg-desktop-portal-wlr
-
 # daemon that provides settings to Xorg applications
 exec xsettingsd
 
@@ -301,5 +298,11 @@ exec playerctld daemon
 exec wlsunset -l 45.1722 -L -122.201
 
 # Screen Sharing https://lists.gnu.org/archive/html/help-guix/2025-03/msg00092.html
-exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec dbus-update-activation-environment --systemd DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK DBUS_SESSION_BUS_ADDRESS
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK DBUS_SESSION_BUS_ADDRESS
+
+# Start the portals
+exec "${HOME}/.guix-home/profile/libexec/xdg-document-portal" -r
+exec "${HOME}/.guix-home/profile/libexec/xdg-permission-store" -r
+exec "${HOME}/.guix-home/profile/libexec/xdg-desktop-portal" -r
+#exec "${HOME}/.guix-home/profile/libexec/xdg-desktop-portal-wlr" -r

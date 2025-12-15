@@ -126,7 +126,8 @@
     "blueman" ;; bluetooth manager
     "yaru-theme" ;; icons
     "adwaita-icon-theme" ;; cursor
-
+    "xdg-desktop-portal"
+    "xdg-desktop-portal-wlr"
 
     "date"
     "font-openmoji"
