@@ -1,0 +1,33 @@
+{
+  "style": "~/.config/waybar/style.css",
+  
+  "layer": "top",
+  "position": "top",
+  "height": 40,
+  
+  "modules-left": [
+    "custom/launcher",
+    "sway/workspaces"
+  ],
+  
+  "modules-center": [
+    "memory",
+    "cpu",
+    "temperature"
+  ],
+  
+  "modules-right": [
+    "idle_inhibitor",
+    "battery",
+    "keyboard-state",
+    "backlight",
+    "pulseaudio",
+    "network",
+    "clock",
+    "bluetooth",
+    "custom/notification",
+    "tray"
+  ],
+
+  "include": "~/.config/waybar/modules.jsonc"
+}

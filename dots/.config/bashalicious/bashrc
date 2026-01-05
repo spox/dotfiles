@@ -1,0 +1,76 @@
+# Extend history
+HISTCONTROL=ignoredups:ignorespace
+HISTFILESIZE=100000
+HISTSIZE=10000
+
+# Set some options
+shopt -s histappend
+shopt -s checkwinsize
+shopt -s extglob
+shopt -s globstar
+shopt -s checkjobs
+
+# Set default env vars
+export GOBIN="${HOME}/.local/bin"
+export GOPATH="${HOME}/.local/go"
+export EDITOR="emacs -nw"
+export GIT_EDITOR="emacs -nw"
+
+# If we are running in sway, set some stuff
+export QT_QPA_PLATFORM="wayland;xcb"
+export SDL_VIDEODRIVER="wayland"
+export XDG_CURRENT_DESKTOP="sway"
+export XDG_SESSION_DESKTOP="sway"
+export XDG_SESSION_TYPE="wayland"
+export MOZ_ENABLE_WAYLAND="1"
+export GDK_BACKEND="wayland"
+export CLUTTER_BACKEND="wayland"
+export XCURSOR_THEME="Adwaita"
+export XCURSOR_SIZE="24"
+export GUIX_LOCPATH="${HOME}/.guix-profile/lib/locale"
+export SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt"
+export CA_CERT_BUNDLE="/etc/ssl/certs/ca-certificates.crt"
+
+# Load in home-manager related stuff
+if [ -f  "${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
+   . "${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh"
+fi
+
+# Make doom available on the path
+export PATH="${PATH}:${HOME}/.config/emacs/bin:${HOME}/.local/bin"
+
+# Source the helper for clearing nixGL env vars
+if [ -f "${HOME}/.config/bashalicious/nixGL-unset" ]; then 
+   . "${HOME}/.config/bashalicious/nixGL-unset"
+fi
+
+# Load any aliases available
+alias_files=("${HOME}/.config/bashalicious/bash-aliases/"*)
+for alias_file in "${alias_files[@]}"; do
+  if [ -f "${HOME}/.config/bashalicious/bash-aliases/${alias_file}" ]; then
+    . "${HOME}/.config/bashalicious/bash-aliases/${alias_file}"
+  fi
+done
+
+# Load up all the tools that need initialization
+# direnv
+if command -v direnv > /dev/null 2>&1; then 
+   eval "$(direnv hook bash)"
+fi
+# starship
+if command -v starship > /dev/null 2>&1; then
+  eval "$(starship init bash --print-full-init)"
+fi
+# zoxide
+if command -v zoxide > /dev/null 2>&1; then 
+  eval "$(zoxide init bash)"
+fi
+# mise
+if command -v mise > /dev/null 2>&1; then
+  eval "$(mise activate bash)"
+fi
+# eza
+if command -v eza > /dev/null 2>&1; then
+  alias ls="eza --color=auto --icons" 
+fi
+
