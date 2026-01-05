@@ -1,0 +1,75 @@
+[battery]
+charging_symbol = "🔌"
+discharging_symbol = "⚡"
+full_symbol = "🔋"
+
+[character]
+error_symbol = "✗(red)"
+success_symbol = "➜"
+
+[cmd_duration]
+format = " took [$duration]($style)"
+min_time = 5000
+
+[custom.sudo]
+format = "[ ELEVATED ]($style)"
+style = "#ffb05b"
+when = "sudo -n --validate"
+
+[directory]
+format = "[$path]($style)[$lock_symbol]($lock_style) "
+truncation_length = 5
+
+[git_branch]
+format = " [$symbol$branch]($style) "
+style = "bold yellow"
+symbol = "🍣 "
+
+[git_commit]
+commit_hash_length = 8
+style = "bold white"
+
+[git_state]
+format = "[($state( $progress_current of $progress_total))]($style) "
+
+[git_status]
+ahead = "🏎️ 💨 ×${count}"
+behind = "🐢 ×${count}"
+conflicted = "⚔️ "
+deleted = "🗑️  ×${count}"
+diverged = "🔱 🏎️ 💨 ×${ahead_count} 🐢 ×${behind_count}"
+format = "$all_status$ahead_behind"
+modified = "📝 ×${count}"
+renamed = "📛 ×${count}"
+staged = "🗃️  ×${count}"
+stashed = "📦 "
+style = "bright-white"
+untracked = "🛤️  ×${count}"
+
+[golang]
+disabled = false
+
+[hostname]
+disabled = false
+ssh_only = false
+
+[jobs]
+symbol = "👷"
+
+[memory_usage]
+disabled = false
+format = "$symbol[${ram}( | ${swap})]($style) "
+style = "bold dimmed white"
+threshold = 70
+
+[package]
+disabled = true
+
+[ruby]
+disabled = false
+
+[time]
+disabled = true
+format = "🕙 $time($style) "
+style = "bright-white"
+time_format = "%T"

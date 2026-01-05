@@ -36,8 +36,14 @@ if [ -f  "${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
    . "${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh"
 fi
 
+# Add home-manager installed stuff to the PATH
+export PATH="${HOME}/.nix-profile/bin:${PATH}"
+
 # Make doom available on the path
-export PATH="${PATH}:${HOME}/.config/emacs/bin:${HOME}/.local/bin"
+export PATH="${PATH}:${HOME}/.config/emacs/bin"
+
+# Make local executables available
+export PATH="${PATH}:${HOME}/.local/bin"
 
 # Source the helper for clearing nixGL env vars
 if [ -f "${HOME}/.config/bashalicious/nixGL-unset" ]; then 
@@ -73,4 +79,7 @@ fi
 if command -v eza > /dev/null 2>&1; then
   alias ls="eza --color=auto --icons" 
 fi
-
+# keychain
+if command -v keychain > /dev/null 2>&1; then
+  eval "$(keychain --eval --quiet id_rsa)"
+fi

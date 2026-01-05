@@ -3,6 +3,7 @@
 {
   nixpkgs.config.allowUnfree = true;
   programs.home-manager.enable = true;
-
-  imports = [ ./machine/%MACHINE_NAME%.nix ];
+  home.stateVersion = "25.11";
+  home.username = "spox";
+  home.homeDirectory = "/home/spox";
 }

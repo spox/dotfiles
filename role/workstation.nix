@@ -35,7 +35,7 @@ in {
     catimg
     direnv
     dos2unix
-    du-dust
+    dust
     eza
     ffmpeg
     glances
@@ -51,7 +51,7 @@ in {
     jless
     jq
     kismet
-    lfs
+    dysk
     lm_sensors
     metal-cli
     miniserve
@@ -155,16 +155,15 @@ in {
     bemenu
     slurp
     dunst
-    pinentry
+    pinentry-gnome3
     pavucontrol
     pamixer
-    qtwayland
     swappy
     wf-recorder
     bemoji
     kanshi
     udiskie
-    lxqt-policykit
+    lxqt.lxqt-policykit
     xsettingsd
     swaynotificationcenter
     blueman
@@ -181,7 +180,6 @@ in {
     xss-lock # X screenlock
 
     # Applications
-    (nixGL chromium)
     (nixGL firefox)
   ];
 
@@ -192,7 +190,7 @@ in {
     bashrcExtra = "";
   };
 
-  programs.ungoogled-chromium = {
+  programs.chromium = {
     enable = true;
     package = (nixGL pkgs.ungoogled-chromium);
     extensions = [
@@ -202,97 +200,6 @@ in {
   };
 
   programs.dircolors = {
-    enable = true;
-    enableBashIntegration = true;
-  };
-
-  programs.keychain = {
-    enable = true;
-    enableBashIntegration = true;
-    enableXsessionIntegration = true;
-  };
-
-  programs.starship = {
-    enable = true;
-    settings = {
-      battery = {
-        full_symbol = "🔋";
-        charging_symbol = "🔌";
-        discharging_symbol = "⚡";
-        # display = {
-        #   threshold = 30;
-        #   style = "bold red";
-        # };
-      };
-      character = {
-        success_symbol = "➜";
-        error_symbol = "✗(red)";
-      };
-      cmd_duration = {
-        min_time = 5000; # Show command duration over 5 seconds
-        format = " took [$duration]($style)";
-      };
-      directory = {
-        truncation_length = 5;
-        format = "[$path]($style)[$lock_symbol]($lock_style) ";
-      };
-      git_branch = {
-        format = " [$symbol$branch]($style) ";
-        symbol = "🍣 ";
-        style = "bold yellow";
-      };
-      git_commit = {
-        commit_hash_length = 8;
-        style = "bold white";
-      };
-      git_state = {
-        format = "[($state( $progress_current of $progress_total))]($style) ";
-      };
-      git_status = {
-        conflicted = "⚔️ ";
-        ahead = "🏎️ 💨 ×\${count}";
-        behind = "🐢 ×\${count}";
-        diverged = "🔱 🏎️ 💨 ×\${ahead_count} 🐢 ×\${behind_count}";
-        untracked = "🛤️  ×\${count}";
-        stashed = "📦 ";
-        modified = "📝 ×\${count}";
-        staged = "🗃️  ×\${count}";
-        renamed = "📛 ×\${count}";
-        deleted = "🗑️  ×\${count}";
-        style = "bright-white";
-        format = "$all_status$ahead_behind";
-      };
-      hostname = {
-        ssh_only = false;
-        disabled = false;
-      };
-      memory_usage = {
-        format = "$symbol[\${ram}( | \${swap})]($style) ";
-        threshold = 70;
-        style = "bold dimmed white";
-        disabled = false;
-      };
-      package = { disabled = true; };
-      ruby = { disabled = false; };
-      golang = { disabled = false; };
-      time = {
-        time_format = "%T";
-        format = "🕙 $time($style) ";
-        style = "bright-white";
-        disabled = true;
-      };
-      jobs = { symbol = "👷"; };
-      custom = {
-        sudo = {
-          when = "sudo -n --validate";
-          style = "#ffb05b";
-          format = "[ ELEVATED ]($style)";
-        };
-      };
-    };
-  };
-
-  programs.zoxide = {
     enable = true;
     enableBashIntegration = true;
   };
@@ -327,9 +234,9 @@ in {
   home.file.".aspell.conf".text =
     "data-dir ${config.home.homeDirectory}/.nix-profile/lib/aspell";
 
-  home.file.".config".source = "../dots/.config";
+  home.file.".config".source = ../dots/.config;
   home.file.".config".recursive = true;
-  home.file.".local".source = "../dots/.local";
+  home.file.".local".source = ../dots/.local;
   home.file.".local".recursive = true;
-  home.file.".gitignore_global".source = "../dots/.gitignore_global";
+  home.file.".gitignore_global".source = ../dots/.gitignore_global;
 }
