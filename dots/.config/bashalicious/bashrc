@@ -53,8 +53,8 @@ fi
 # Load any aliases available
 alias_files=("${HOME}/.config/bashalicious/bash-aliases/"*)
 for alias_file in "${alias_files[@]}"; do
-  if [ -f "${HOME}/.config/bashalicious/bash-aliases/${alias_file}" ]; then
-    . "${HOME}/.config/bashalicious/bash-aliases/${alias_file}"
+  if [ -f "${alias_file}" ]; then
+    . "${alias_file}";
   fi
 done
 
