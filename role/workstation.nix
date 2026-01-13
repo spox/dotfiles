@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let nixGL = import ./nixGL.nix { inherit pkgs lib; };
-in {
+let
+  nixGL = import ./nixGL.nix { inherit pkgs lib; };
+in
+{
   home.packages = with pkgs; [
     # Libraries
     libffi
@@ -128,22 +135,23 @@ in {
     aspell
     aspellDicts.en
     (weechat.override {
-      configure = { availablePlugins, ... }: {
-        plugins = with availablePlugins;
-          [ (python.withPackages (ps: with ps; [ websocket-client ])) ];
-      };
+      configure =
+        { availablePlugins, ... }:
+        {
+          plugins = with availablePlugins; [ (python.withPackages (ps: with ps; [ websocket-client ])) ];
+        };
     })
     weechatScripts.wee-slack
 
     # Desktop tools
-    brightnessctl              # Control brightness
-    keepassxc                  # Local password manager
-    (nixGL librewolf)          # Stripped down firefox
+    brightnessctl # Control brightness
+    keepassxc # Local password manager
+    (nixGL librewolf) # Stripped down firefox
     (nixGL ungoogled-chromium) # Stripped down chromium
-    (nixGL swayfx)             # Sway with FX
-    swayidle                   # Idler
-    swaylock                   # locker
-    waylock                    # locker
+    (nixGL swayfx) # Sway with FX
+    swayidle # Idler
+    swaylock # locker
+    waylock # locker
     swaybg
     waybar
     clipman
@@ -167,26 +175,18 @@ in {
     xsettingsd
     swaynotificationcenter
     blueman
-    
+
     hunspell # dictionary for vnote
     hunspellDicts.en-us-large
     otpclient # 2FA password generator
     (nixGL nyxt) # Browser
 
     (nixGL thunderbird)
-    wmctrl
-    xclip # copy / paste
-    xdotool # window inspection
-    xss-lock # X screenlock
-
-    # Applications
-    (nixGL firefox)
   ];
 
   programs.bash = {
     enable = true;
-    initExtra = ''
-      . ${config.xdg.configHome}/bashalicious/bashrc'';
+    initExtra = ''. ${config.xdg.configHome}/bashalicious/bashrc'';
     bashrcExtra = "";
   };
 
@@ -205,7 +205,7 @@ in {
   };
 
   systemd.user.services = {
-    
+
     # conky = {
     #   Unit = {
     #     Description = "Conky bar";
@@ -231,8 +231,7 @@ in {
   };
 
   # Point the aspell config to the correct location
-  home.file.".aspell.conf".text =
-    "data-dir ${config.home.homeDirectory}/.nix-profile/lib/aspell";
+  home.file.".aspell.conf".text = "data-dir ${config.home.homeDirectory}/.nix-profile/lib/aspell";
 
   home.file.".config".source = ../dots/.config;
   home.file.".config".recursive = true;
