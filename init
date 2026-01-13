@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+echo "Adding channels..."
+nix-channel --add https://nixos.org/channels/nixos-25.11 nixpkgs || exit
+nix-channel --add https://github.com/guibou/nixGL/archive/main.tar.gz nixgl || exit
+nix-channel --add https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz home-manager || exit
+
+echo "Updating channels..."
+nix-channel --update || exit
+
+echo "Installing home-manager...."
+nix-shell '<home-manager>' -A install || exit
