@@ -3,6 +3,6 @@
 {
   programs.go = { goPrivate = [ "github.com/hashicorp" ]; };
 
-  home.file.".face".source = ../config/serious-fry.jpg;
+  home.file.".face".source = ../config/work.jpg;
   home.file.".gitconfig".source = ../config/git/gitconfig_work;
 }
