@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
+. /etc/profile
 
-sway > /home/spox/.local/sway.log  2>&1
+echo "my path: ${PATH}" > /home/spox/.local/sway.log
+echo "home: ${HOME}" >> /home/spox/.local/sway.log
+echo "user: ${USER}" >> /home/spox/.local/sway.log
+sway >> /home/spox/.local/sway.log  2>&1

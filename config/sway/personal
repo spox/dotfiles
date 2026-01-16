@@ -1,0 +1,11 @@
+# Idle configuration
+exec swayidle -w \
+    timeout 600 'swaylock --image ~/.config/wallpaper --config ~/.config/swaylock/config' \
+    timeout 800 'swaymsg "output * power off"' \
+    timeout 3600 'systemctl suspend' \
+    after-resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock --image ~/.config/wallpaper --daeomonize --config ~/.config/swaylock/config'
+
+# Lockers
+bindsym $mod+z exec swaylock --config ~/.config/swaylock/config
+bindsym $mod+Shift+z exec systemctl suspend

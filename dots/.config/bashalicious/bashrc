@@ -25,11 +25,7 @@ export XDG_SESSION_TYPE="wayland"
 export MOZ_ENABLE_WAYLAND="1"
 export GDK_BACKEND="wayland"
 export CLUTTER_BACKEND="wayland"
-export XCURSOR_THEME="Adwaita"
-export XCURSOR_SIZE="24"
-export GUIX_LOCPATH="${HOME}/.guix-profile/lib/locale"
-export SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt"
-export CA_CERT_BUNDLE="/etc/ssl/certs/ca-certificates.crt"
+export XCURSOR_PATH="~/.nix-profile/share/icons:${XCURSOR_PATH}"
 
 # Load in home-manager related stuff
 if [ -f  "${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
@@ -82,4 +78,12 @@ fi
 # keychain
 if command -v keychain > /dev/null 2>&1; then
   eval "$(keychain --eval --quiet id_rsa)"
+fi
+
+# Load ssh-agent information
+export SSH_AUTH_SOCK="$(ps ax | grep "[s]sh-agent" | awk '{print $8}')"
+
+# And load default key if needed
+if ! ssh-add -l > /dev/null 2>&1; then
+   ssh-add ~/.ssh/id_rsa
 fi

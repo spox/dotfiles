@@ -176,17 +176,26 @@ in
     swaynotificationcenter
     blueman
 
+    xdg-desktop-portal
+    xdg-desktop-portal-wlr
+
     hunspell # dictionary for vnote
     hunspellDicts.en-us-large
     otpclient # 2FA password generator
     (nixGL nyxt) # Browser
+
+    fontconfig
+    noto-fonts
+    nerd-fonts.noto
+    catppuccin-cursors.mochaLavender
+    papirus-icon-theme
 
     (nixGL thunderbird)
   ];
 
   programs.bash = {
     enable = true;
-    initExtra = ''. ${config.xdg.configHome}/bashalicious/bashrc'';
+    initExtra = ". ${config.xdg.configHome}/bashalicious/bashrc";
     bashrcExtra = "";
   };
 
@@ -205,7 +214,17 @@ in
   };
 
   systemd.user.services = {
-
+    sshagent = {
+      Unit = {
+        Description = "SSH Agent";
+        Requires = "graphical-session.target";
+      };
+      Service = {
+        Environment = "SSH_AUTH_SOCK=%t/ssh-agent.sock";
+        ExecStart = "ssh-agent -D -a $SSH_AUTH_SOCK";
+        Restart = "always";
+      };
+    };
     # conky = {
     #   Unit = {
     #     Description = "Conky bar";

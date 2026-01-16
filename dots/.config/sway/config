@@ -22,26 +22,22 @@ focus_on_window_activation smart
 mouse_warping output
 workspace_layout default
 workspace_auto_back_and_forth yes
-gaps inner 4
-gaps outer 0
-smart_gaps on
-smart_borders on
-seat seat0 hide_cursor 3000
+seat * hide_cursor 3000
 
 # Set wallpaper to generic path to make it easily swappable
 output "*" bg ~/.config/wallpaper fill
 
-# Cursor theme
-# TODO: what should this be?
-seat * xcursor_theme Adwaita 24
+font pango:Noto Sans Regular 10
 
-# Theme for Gnome-apps - managed by darkman
+# Cursor theme
+seat * xcursor_theme catppuccin-mocha-lavender-cursors 24
+
 # Cursor and icon settings remain static
 # Check what to do with this? No darkman used here.
 set $gnome-schema org.gnome.desktop.interface
 exec_always {
-    gsettings set $gnome-schema icon-theme 'Yaru'
-    gsettings set $gnome-schema cursor-theme 'Adwaita'
+    gsettings set $gnome-schema icon-theme 'Papirus'
+    gsettings set $gnome-schema cursor-theme 'catppuccin-mocha-lavender-cursors'
     gsettings set $gnome-schema font-name 'Noto Sans 9'
 }
 
@@ -240,37 +236,50 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # SwayFX
-layer_effects "waybar" blur enable; shadows disable;
-layer_effects "gtk-layer-shell" blur enable; shadows enable; corner_radius 13
-layer_effects "rofi" blur enable; shadows enable; corner_radius 13
+# animation_duration_ms 250
+
+gaps inner 4
+gaps outer 0
+smart_gaps on
+smart_borders on
 
 smart_corner_radius enable
 corner_radius 10
 shadows enable
 shadows_on_csd enable
 shadow_blur_radius 20
-shadow_inactive_color "#0000007F"
+#shadow_inactive_color "#00007F"
 
 blur enable
 blur_xray disable
 blur_passes 2
 blur_radius 3
 
-dim_inactive_colors.unfocused  "#000000FF"
-dim_inactive_colors.urgent "#900000FF"
+default_dim_inactive 0.3
+dim_inactive_colors.unfocused "#1f1f28"
+dim_inactive_colors.urgent "#ff5d62"
 
-#default_dim_inactive 0.1
-#blur enable
-#shadows enable
-#dim_inactive_colors.unfocused #0000ff
+set {
+  $color1 #dcd7ba
+  $color2 #1f1f28
+  $color3 #c8c093
+}
+
+client.focused          $color1 $color1 $color2 $color1 $color1
+client.focused_inactive $color2 $color2 $color1 $color2 $color2
+client.unfocused        $color2 $color2 $color1 $color2 $color2
+client.urgent           $color3 $color3 $color1 $color3 $color3
+client.background #dcd7ba
+
+layer_effects "waybar" blur enable; shadows disable;
+layer_effects "gtk-layer-shell" blur enable; shadows enable; corner_radius 13
+layer_effects "rofi" blur enable; shadows enable; corner_radius 13
+
 
 # blur enable
 # shadows enable
 # shadows_on_csd on
 # corner_radius 1
-
-# Load any customizations
-include config.d/*
 
 # Start all the stuff we want running.
 
@@ -302,7 +311,10 @@ exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSO
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK DBUS_SESSION_BUS_ADDRESS
 
 # Start the portals
-exec "${HOME}/.guix-home/profile/libexec/xdg-document-portal" -r
-exec "${HOME}/.guix-home/profile/libexec/xdg-permission-store" -r
-exec "${HOME}/.guix-home/profile/libexec/xdg-desktop-portal" -r
+#exec "${HOME}/.guix-home/profile/libexec/xdg-document-portal" -r
+#exec "${HOME}/.guix-home/profile/libexec/xdg-permission-store" -r
+#exec "${HOME}/.guix-home/profile/libexec/xdg-desktop-portal" -r
 #exec "${HOME}/.guix-home/profile/libexec/xdg-desktop-portal-wlr" -r
+
+# Load any customizations
+include config.d/*
