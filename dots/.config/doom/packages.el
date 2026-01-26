@@ -2,7 +2,7 @@
 ;;
 
 (package! protobuf-mode)
-(unpin! consult)
+;;(unpin! consult)
 ;; (package! enh-ruby-mode
 ;;   :recipe (:host github :repo "zenspider/enhanced-ruby-mode"))
 ;; (package! company-inf-ruby)

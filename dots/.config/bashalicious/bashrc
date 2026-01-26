@@ -25,7 +25,7 @@ export XDG_SESSION_TYPE="wayland"
 export MOZ_ENABLE_WAYLAND="1"
 export GDK_BACKEND="wayland"
 export CLUTTER_BACKEND="wayland"
-export XCURSOR_PATH="~/.nix-profile/share/icons:${XCURSOR_PATH}"
+export XCURSOR_PATH="${HOME}/.nix-profile/share/icons:${XCURSOR_PATH}"
 
 # Load in home-manager related stuff
 if [ -f  "${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
@@ -81,9 +81,25 @@ if command -v keychain > /dev/null 2>&1; then
 fi
 
 # Load ssh-agent information
-export SSH_AUTH_SOCK="$(ps ax | grep "[s]sh-agent" | awk '{print $8}')"
+sock="$(pgrep --uid $UID ssh-agent --list-full | awk '{print $5}')"
+if [ -n "${sock}" ]; then
+  envrc="${HOME}/.envrc"
+  sock_content="export SSH_AUTH_SOCK=\"${sock}\""
+  key_content="if ! ssh-add -l > /dev/null 2>&1; then
+  echo 'Adding default ssh key to agent'
+  ssh-add ~/.ssh/id_rsa
+fi"
+  # Set the socket var
+  if [ ! -f "${envrc}" ]; then
+    echo "${sock_content}" > "${envrc}"
+  elif ! grep "SSH_AUTH_SOCK" "${envrc}" > /dev/null 2>&1; then
+    echo "${sock_content}" >> "${envrc}"
+  elif ! grep "${sock}" "${envrc}" > /dev/null 2>&1; then
+    sed -i "s/export SSH_AUTH_SOCK.*/${sock_content}/" "${envrc}"
+  fi
 
-# And load default key if needed
-if ! ssh-add -l > /dev/null 2>&1; then
-   ssh-add ~/.ssh/id_rsa
+  # Add key bit if not already there
+  if ! grep "ssh-add -l" "${envrc}" > /dev/null 2>&1; then
+    echo "${key_content}" >> "${envrc}"
+  fi
 fi

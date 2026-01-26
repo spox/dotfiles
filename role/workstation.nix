@@ -72,7 +72,6 @@ in
     postgresql
     procs
     progress
-    rpm
     sshuttle
     unixtools.netstat
     unzip
@@ -80,6 +79,7 @@ in
     xz
     yq-go
     zip
+    zoxide
 
     # Development things
     bat # cat alternative
@@ -121,6 +121,7 @@ in
     sqlite
     ssh-audit
     tig
+    tree-sitter
 
     # Shell usability things
     croc # CLI file transfer

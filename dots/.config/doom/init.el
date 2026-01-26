@@ -112,6 +112,7 @@
 
        :lang
        ;;agda              ; types of types of types of types...
+       (bash +tree-sitter)
        ;;beancount         ; mind the GAAP
        ;;cc                ; C > C++ == 1
        ;;clojure           ; java with a lisp
@@ -169,10 +170,11 @@
        ;;solidity          ; do you need a blockchain? No.
        (swift +lsp)             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
+       tree-sitter
        web               ; the tubes
        yaml              ; JSON, but readable
        ;;zig               ; C, but simpler
-
+       
        :email
        ;;(mu4e +org +gmail)
        ;;notmuch
