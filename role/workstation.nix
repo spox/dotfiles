@@ -230,6 +230,19 @@ in
         Restart = "always";
       };
     };
+    nm-applet = {
+      Unit = {
+        Description = "Network Manager Applet";
+        Requires = "graphical-session.target";
+      };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
+      Service = {
+        ExecStart = "nm-applet";
+        Restart = "always";
+      };
+    };
     # conky = {
     #   Unit = {
     #     Description = "Conky bar";
