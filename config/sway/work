@@ -5,7 +5,7 @@ exec swayidle -w \
     before-sleep '/usr/bin/swaylock --image ~/.config/wallpaper --daemonize --config ~/.config/swaylock/config'
 
 # Lockers
-bindsym $mod+z exec /usr/bin/swaylock --config ~/.config/swaylock/config
+bindsym $mod+z exec /usr/bin/swaylock --config ~/.config/swaylock/config --image ~/.config/wallpaper
 bindsym $mod+Shift+z exec systemctl suspend
 
 # Ensure the xdg stuff is all running

@@ -176,6 +176,7 @@ in
     xsettingsd
     swaynotificationcenter
     blueman
+    networkmanagerapplet
 
     xdg-desktop-portal
     xdg-desktop-portal-wlr
@@ -219,6 +220,9 @@ in
       Unit = {
         Description = "SSH Agent";
         Requires = "graphical-session.target";
+      };
+      Install = {
+        WantedBy = [ "default.target" ];
       };
       Service = {
         Environment = "SSH_AUTH_SOCK=%t/ssh-agent.sock";
