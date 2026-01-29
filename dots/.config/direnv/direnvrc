@@ -1,0 +1,468 @@
+# Original source: https://github.com/direnv/direnv/issues/190#issuecomment-3286617153
+# 
+# =====================
+# Direnv recursive mode with security checks (direnv-mimicking)
+# =====================
+
+# By default, direnv only loads the nearest .envrc, not all of them all the way
+# up to /, see https://github.com/direnv/direnv/issues/190 . The following code
+# solves this with proper security checks that mimic direnv's own behavior.
+
+# =====================
+# SECURITY CONFIGURATION
+# =====================
+
+# Set security mode (can be overridden in .envrc)
+# Options: "normal", "strict", "toml-only", "prompt", "disabled"
+DIRENV_RECURSIVE_SECURITY_MODE="${DIRENV_RECURSIVE_SECURITY_MODE:-normal}"
+
+# Enable verbose logging for security decisions
+DIRENV_RECURSIVE_VERBOSE="${DIRENV_RECURSIVE_VERBOSE:-false}"
+
+# =====================
+# PATH DETECTION FUNCTIONS
+# =====================
+
+# Function to get the correct direnv config file path
+_get_direnv_config_file() {
+  if [[ -n "$DIRENV_CONFIG" ]]; then
+    echo "$DIRENV_CONFIG/direnv.toml"
+  else
+    echo "${XDG_CONFIG_HOME:-$HOME/.config}/direnv/direnv.toml"
+  fi
+}
+
+# Function to get the correct direnv allow database path
+_get_direnv_allow_dir() {
+  # Allow database always uses standard location
+  echo "${XDG_DATA_HOME:-$HOME/.local/share}/direnv/allow"
+}
+
+# =====================
+# SECURITY CHECK FUNCTIONS
+# =====================
+
+# Function to check if a .envrc file is allowed by direnv's internal database
+_is_envrc_allowed() {
+  local envrc_path="$1"
+  local allow_dir=$(_get_direnv_allow_dir)
+  
+  # Check if the allow directory exists
+  if [[ ! -d "$allow_dir" ]]; then
+    return 1
+  fi
+  
+  # Check if file exists
+  if [[ ! -f "$envrc_path" ]]; then
+    return 1
+  fi
+  
+  # Calculate the hash that direnv uses (path + newline + content)
+  local hash=$(printf "$envrc_path\n" | cat - "$envrc_path" | sha256sum - | cut -d ' ' -f 1)
+  
+  # Check if a file with this hash exists in the allow directory
+  if [[ -f "$allow_dir/$hash" ]]; then
+    return 0  # allowed
+  fi
+  
+  return 1  # not allowed
+}
+
+# Function to check if a .envrc file is denied by direnv's internal database
+_is_envrc_denied() {
+  local envrc_path="$1"
+  local deny_dir="${XDG_DATA_HOME:-$HOME/.local/share}/direnv/deny"
+  
+  # Check if the deny directory exists
+  if [[ ! -d "$deny_dir" ]]; then
+    return 1
+  fi
+  
+  # Check if file exists
+  if [[ ! -f "$envrc_path" ]]; then
+    return 1
+  fi
+  
+  # Calculate the path hash that direnv uses for deny (just the path, no content)
+  local path_hash=$(printf "$envrc_path\n" | sha256sum - | cut -d ' ' -f 1)
+  
+  # Check if a file with this hash exists in the deny directory
+  if [[ -f "$deny_dir/$path_hash" ]]; then
+    return 0  # denied
+  fi
+  
+  return 1  # not denied
+}
+
+# Function to check if a path is in the direnv.toml exact whitelist
+_is_in_toml_exact() {
+  local check_path="$1"
+  local config_file=$(_get_direnv_config_file)
+  
+  # Check if config file exists
+  if [[ ! -f "$config_file" ]]; then
+    return 1
+  fi
+  
+  # Extract exact paths from TOML (basic parsing)
+  local exact_paths=$(awk '
+    /^\[whitelist\]/ { in_whitelist = 1; next }
+    /^\[/ { in_whitelist = 0; next }
+    in_whitelist && /^exact = \[/ {
+      # Start of exact array
+      in_exact = 1
+      # Handle single line array
+      if (/\]/) {
+        line = $0
+        gsub(/.*\[/, "", line)
+        gsub(/\].*/, "", line)
+        gsub(/"/, "", line)
+        gsub(/,/, "\n", line)
+        print line
+        in_exact = 0
+      }
+      next
+    }
+    in_exact && /\]/ {
+      # End of exact array
+      in_exact = 0
+      next
+    }
+    in_exact {
+      # Inside exact array
+      gsub(/"/, "", $0)
+      gsub(/,/, "", $0)
+      gsub(/^ */, "", $0)
+      gsub(/ *$/, "", $0)
+      if ($0 != "") print $0
+    }
+  ' "$config_file")
+  
+  # Check each exact path
+  while IFS= read -r exact_path; do
+    [[ -z "$exact_path" ]] && continue
+    
+    # Handle directory paths (add /.envrc if it's a directory)
+    if [[ "$exact_path" == "$check_path" ]] || [[ "$exact_path/.envrc" == "$check_path" ]]; then
+      return 0  # found in exact list
+    fi
+  done <<< "$exact_paths"
+  
+  return 1  # not found
+}
+
+# Function to check if a path is under a trusted prefix from TOML
+_is_in_toml_prefix() {
+  local check_path="$1"
+  local config_file=$(_get_direnv_config_file)
+  
+  # Check if config file exists
+  if [[ ! -f "$config_file" ]]; then
+    return 1
+  fi
+  
+  # Extract prefix paths from TOML
+  local prefix_paths=$(awk '
+    /^\[whitelist\]/ { in_whitelist = 1; next }
+    /^\[/ { in_whitelist = 0; next }
+    in_whitelist && /^prefix = \[/ {
+      in_prefix = 1
+      if (/\]/) {
+        line = $0
+        gsub(/.*\[/, "", line)
+        gsub(/\].*/, "", line)
+        gsub(/"/, "", line)
+        gsub(/,/, "\n", line)
+        print line
+        in_prefix = 0
+      }
+      next
+    }
+    in_prefix && /\]/ {
+      in_prefix = 0
+      next
+    }
+    in_prefix {
+      gsub(/"/, "", $0)
+      gsub(/,/, "", $0)
+      gsub(/^ */, "", $0)
+      gsub(/ *$/, "", $0)
+      if ($0 != "") print $0
+    }
+  ' "$config_file")
+  
+  # Check each prefix path
+  while IFS= read -r prefix_path; do
+    [[ -z "$prefix_path" ]] && continue
+    
+    # Check if check_path starts with prefix_path
+    if [[ "$check_path" == "$prefix_path"* ]]; then
+      return 0  # found under trusted prefix
+    fi
+  done <<< "$prefix_paths"
+  
+  return 1  # not found
+}
+
+# Combined TOML whitelist check (exact OR prefix)
+_is_in_toml_whitelist() {
+  local envrc_path="$1"
+  _is_in_toml_exact "$envrc_path" || _is_in_toml_prefix "$envrc_path"
+}
+
+# Interactive prompt function
+_prompt_for_envrc() {
+  local envrc_path="$1"
+  
+  # Skip prompting in non-interactive shells
+  if [[ ! -t 0 ]]; then
+    _log_debug "Non-interactive: Skipping $envrc_path"
+    return 1
+  fi
+  
+  echo "⚠️  Found .envrc: $envrc_path" >&2
+  echo "Content preview:" >&2
+  echo "----------------------------------------" >&2
+  head -10 "$envrc_path" >&2
+  echo "----------------------------------------" >&2
+  
+  read -p "Load this .envrc? [y/N] " -n 1 -r >&2
+  echo >&2
+  
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+# Main security check function - MIMICS DIRENV CORE LOGIC EXACTLY
+_is_envrc_secure() {
+  local envrc_path="$1"
+  local mode="$2"
+  
+  # FIRST: Check if file is explicitly denied (highest priority)
+  # This applies to ALL modes except disabled - denied always wins!
+  if [[ "$mode" != "disabled" ]] && _is_envrc_denied "$envrc_path"; then
+    return 1  # DENIED - blocked regardless of whitelist or allow status
+  fi
+  
+  case "$mode" in
+    "normal")
+      # MIMIC DIRENV: Check TOML whitelist OR allow database (but not if denied)
+      _is_in_toml_whitelist "$envrc_path" || _is_envrc_allowed "$envrc_path"
+      ;;
+    "strict")
+      # Only allow files that are in direnv's allow database (but not if denied)
+      _is_envrc_allowed "$envrc_path"
+      ;;
+    "toml-only")
+      # Only allow files that are in TOML whitelist (but not if denied)
+      _is_in_toml_whitelist "$envrc_path"
+      ;;
+    "prompt")
+      # Interactive mode: ask user for each file (but not if denied)
+      _prompt_for_envrc "$envrc_path"
+      ;;
+    "disabled")
+      # No security checks (original behavior)
+      return 0
+      ;;
+    *)
+      echo "ERROR: Unknown security mode: $mode" >&2
+      return 1
+      ;;
+  esac
+}
+
+# Enhanced logging function that shows the reason (always visible for transparency)
+_log_security_decision() {
+  local envrc_path="$1"
+  local allowed="$2"
+  local reason="$3"
+  local pretty_path=$(_prettify_path "$envrc_path")
+  
+  # if [[ "$allowed" == "true" ]]; then
+  #   echo "✅ Loading: $pretty_path ($reason)" >&2
+  # else
+  #   echo "🚫 Skipping: $pretty_path ($reason)" >&2
+  # fi
+  
+if [[ "$allowed" != "true" ]]; then
+    echo "🚫 Skipping: $pretty_path ($reason)" >&2
+  fi
+}
+
+# Helper function to convert home directory paths to use ~
+_prettify_path() {
+  local path="$1"
+  if [[ -n "$HOME" && "$path" == "$HOME"* ]]; then
+    echo "~${path#$HOME}"
+  else
+    echo "$path"
+  fi
+}
+
+# INFO logging function (always visible)
+_log_info() {
+  echo "INFO: $*" >&2
+}
+
+# DEBUG logging function (only visible when debug enabled)
+_log_debug() {
+  if [[ "$DIRENV_RECURSIVE_VERBOSE" == "true" ]]; then
+    echo "DEBUG: $*" >&2
+  fi
+}
+
+# Function to determine WHY a file was allowed/rejected
+_get_allow_reason() {
+  local envrc_path="$1"
+  local mode="$2"
+  
+  case "$mode" in
+    "disabled")
+      echo "security disabled"
+      ;;
+    "prompt")
+      echo "user approved"
+      ;;
+    *)
+      # For normal, strict, toml-only modes, determine the actual reason
+      if _is_in_toml_exact "$envrc_path"; then
+        echo "in TOML exact list"
+      elif _is_in_toml_prefix "$envrc_path"; then
+        echo "under TOML prefix"
+      elif _is_envrc_allowed "$envrc_path"; then
+        echo "in direnv allow database"
+      else
+        echo "unknown reason"
+      fi
+      ;;
+  esac
+}
+
+_get_reject_reason() {
+  local envrc_path="$1"
+  local mode="$2"
+  local pretty_dir=$(_prettify_path "$(dirname "$envrc_path")")
+  
+  # Check if file is denied first (highest priority)
+  if _is_envrc_denied "$envrc_path"; then
+    echo "explicitly denied - run 'direnv allow $pretty_dir' to remove denial"
+    return
+  fi
+  
+  case "$mode" in
+    "strict")
+      echo "not in direnv allow database - run 'direnv allow $pretty_dir'"
+      ;;
+    "toml-only")
+      echo "not in TOML whitelist - add to exact or prefix list in direnv.toml"
+      ;;
+    "normal")
+      echo "not in TOML whitelist or allow database - add to direnv.toml or run 'direnv allow $pretty_dir'"
+      ;;
+    "prompt")
+      echo "user declined"
+      ;;
+    *)
+      echo "rejected by security policy"
+      ;;
+  esac
+}
+
+# Debug function to show detected paths (useful for troubleshooting)
+_debug_show_paths() {
+  _log_debug "Config file: $(_prettify_path "$(_get_direnv_config_file)")"
+  _log_debug "Allow database: $(_prettify_path "$(_get_direnv_allow_dir)")"
+}
+
+# =====================
+# ORIGINAL FUNCTIONS (ENHANCED)
+# =====================
+
+find_up_all() { 
+    ( 
+        while true; do
+            if [[ -f $1 ]]; then
+                echo "$PWD/$1" 
+            fi
+            if [[ $PWD == / ]] || [[ $PWD == // ]]; then
+                return 0
+            fi
+            cd .. 
+        done
+    ) 
+} 
+
+# Enhanced version with security checks that mimic direnv
+_source_up_all() { 
+    local file=${1:-.envrc}
+    local security_mode="${2:-$DIRENV_RECURSIVE_SECURITY_MODE}"
+    
+    _log_info "Direnv recursive mode enabled (security: $security_mode)"
+    _debug_show_paths
+
+    # Note that the present file only ever gets executed if direnv has found an
+    # .envrc file, so find_up_all will always return at least one file. 
+    local all_targets=$(find_up_all $file) 
+
+    local parent_targets=$(echo "$all_targets" | sed '1d' | tac) 
+    # sed removes the first line (= nearest .envrc, which will be loaded by
+    # direnv after executing the present file), tac reverse-sorts the multi-line
+    # string, so that we load the top-most .envrc first. 
+
+    local loaded_count=0
+    local skipped_count=0
+    
+    for envrc_path in $parent_targets; do
+        [[ -n "$envrc_path" ]] || continue
+        
+        # Perform security check
+        if _is_envrc_secure "$envrc_path" "$security_mode"; then
+            local reason=$(_get_allow_reason "$envrc_path" "$security_mode")
+            _log_security_decision "$envrc_path" "true" "$reason"
+            source_env "$envrc_path"
+            ((loaded_count++))
+        else
+            local reason=$(_get_reject_reason "$envrc_path" "$security_mode")
+            _log_security_decision "$envrc_path" "false" "$reason"
+            ((skipped_count++))
+        fi
+    done
+    
+    _log_info "Loaded $loaded_count parent .envrc files, skipped $skipped_count"
+} 
+
+# =====================
+# CONVENIENCE FUNCTIONS
+# =====================
+
+# Load parent configs with different security modes
+source_up_all_normal() {
+    _source_up_all .envrc "normal"
+}
+
+source_up_all_strict() {
+    _source_up_all .envrc "strict"
+}
+
+source_up_all_toml_only() {
+    _source_up_all .envrc "toml-only"
+}
+
+source_up_all_prompt() {
+    _source_up_all .envrc "prompt"
+}
+
+source_up_all_unsafe() {
+    _source_up_all .envrc "disabled"
+}
+
+# =====================
+# MAIN EXECUTION
+# =====================
+
+# Load parent configs using the configured security mode (defaults to "normal")
+_source_up_all
