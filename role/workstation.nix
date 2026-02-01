@@ -199,6 +199,9 @@ in
     enable = true;
     initExtra = ". ${config.xdg.configHome}/bashalicious/bashrc";
     bashrcExtra = "";
+    sessionVariables = {
+      PATH = "/home/$USER/.nix-profile/bin:$PATH";
+    };
   };
 
   programs.chromium = {
