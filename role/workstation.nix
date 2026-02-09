@@ -243,6 +243,19 @@ in
         Restart = "always";
       };
     };
+    blueman-applet = {
+      Unit = {
+        Description = "Bluetooth Applet";
+        Requires = "graphical-session.target";
+      };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
+      Service = {
+        ExecStart = "blueman-applet";
+        Restart = "always";
+      };
+    };
     # conky = {
     #   Unit = {
     #     Description = "Conky bar";
