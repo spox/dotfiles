@@ -11,3 +11,13 @@
 ;; (package! rake)
 ;; (package! robe)
 ;; (package! rspec-mode)
+
+(use-package doom-themes
+  :ensure t
+  :config
+  (load-theme 'doom-kanagawa-lotus t)
+  (doom-themes-treemacs-config)
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config))
+
+
