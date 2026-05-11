@@ -16,6 +16,8 @@ in
 
     # Lets define our shell related things
     kitty
+    rio
+    contour
     tmux
     starship
 
@@ -149,6 +151,8 @@ in
     keepassxc # Local password manager
     (nixGL librewolf) # Stripped down firefox
     (nixGL ungoogled-chromium) # Stripped down chromium
+    (nixGL vivaldi) # Alt browser
+    vivaldi-ffmpeg-codecs
     (nixGL swayfx) # Sway with FX
     swayidle # Idler
     swaylock # locker
@@ -189,6 +193,7 @@ in
     fontconfig
     noto-fonts
     nerd-fonts.noto
+    noto-fonts-color-emoji
     catppuccin-cursors.mochaLavender
     papirus-icon-theme
 

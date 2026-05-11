@@ -46,7 +46,7 @@ Can be an integer to determine the exact padding."
 ;;; Theme definition
 
 (def-doom-theme doom-kanagawa-lotus
-  "A light theme with serene, warm tones inspired by Kanagawa Lotus."
+    "A light theme with serene, warm tones inspired by Kanagawa Lotus."
 
   ;; name        default   256       16
   ;; Lotus White - Light warm backgrounds

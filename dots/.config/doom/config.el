@@ -8,6 +8,7 @@
   (doom/set-indent-width 4))
 (add-hook 'go-mode-hook 'go-mode-indent)
 
+(setq doom-kanagawa-wave-brighter-comments 't)
 (setq doom-theme 'doom-kanagawa-wave)
 
 ;; (setq-default doom-theme 'doom-xcode)
