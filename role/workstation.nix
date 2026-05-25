@@ -203,10 +203,8 @@ in
   programs.bash = {
     enable = true;
     initExtra = ". ${config.xdg.configHome}/bashalicious/bashrc";
+    profileExtra = ". ${config.xdg.configHome}/bashalicious/bashrc";
     bashrcExtra = "";
-    sessionVariables = {
-      PATH = "/home/$USER/.nix-profile/bin:$PATH";
-    };
   };
 
   programs.chromium = {

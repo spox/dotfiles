@@ -7,3 +7,9 @@ exec swayidle -w \
 # Lockers
 bindsym $mod+z exec /usr/bin/swaylock --config ~/.config/swaylock/config --image ~/.config/wallpaper
 bindsym $mod+Shift+z exec systemctl suspend
+
+# Ensure the xdg stuff is all running
+exec "/home/spox/.nix-profile/libexec/xdg-desktop-portal" -r
+exec "/home/spox/.nix-profile/libexec/xdg-desktop-portal-wlr" -r
+exec "/home/spox/.nix-profile/libexec/xdg-permission-store" -r
+exec "/home/spox/.nix-profile/libexec/xdg-document-portal" -r

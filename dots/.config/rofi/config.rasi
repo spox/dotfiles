@@ -19,7 +19,7 @@ configuration {
     
     // Icon settings
     show-icons: true;
-    icon-theme: "Papirus-Dark";
+    icon-theme: "breeze";
     
     // Basic settings
     terminal: "kitty";
