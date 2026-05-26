@@ -16,7 +16,7 @@ in
 
     # Lets define our shell related things
     kitty
-    rio
+    (nixGL rio)
     contour
     tmux
     starship
@@ -246,7 +246,7 @@ in
         WantedBy = [ "default.target" ];
       };
       Service = {
-        ExecStart = "nm-applet";
+        ExecStart = "/home/spox/.nix-profile/bin/nm-applet";
         Restart = "always";
       };
     };
@@ -259,7 +259,7 @@ in
         WantedBy = [ "default.target" ];
       };
       Service = {
-        ExecStart = "blueman-applet";
+        ExecStart = "/home/spox/.nix-profile/bin/blueman-applet";
         Restart = "always";
       };
     };
