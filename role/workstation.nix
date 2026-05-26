@@ -57,6 +57,7 @@ in
     hfsprogs
     htop
     imagemagick
+    jfrog-cli
     jless
     jq
     kismet
