@@ -35,6 +35,7 @@ in
     # Shell utilities
     act
     aircrack-ng
+    appimageupdate-qt
     awscli2
     bandwhich
     bottom
@@ -182,6 +183,13 @@ in
     swaynotificationcenter
     blueman
     networkmanagerapplet
+    krita
+    gsettings-qt
+    libreoffice-qt
+    lxqt.lximage-qt
+    lxqt.pcmanfm-qt
+    lxqt.screengrab
+    catppuccin-qt5ct
 
     xdg-desktop-portal
     xdg-desktop-portal-wlr
