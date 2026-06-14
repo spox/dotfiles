@@ -20,6 +20,7 @@ in
     contour
     tmux
     starship
+    zellij
 
     # Language related things
     crystal
@@ -58,6 +59,7 @@ in
     hfsprogs
     htop
     imagemagick
+    iotop-c
     jfrog-cli
     jless
     jq
@@ -153,8 +155,6 @@ in
     keepassxc # Local password manager
     (nixGL librewolf) # Stripped down firefox
     (nixGL ungoogled-chromium) # Stripped down chromium
-    (nixGL vivaldi) # Alt browser
-    vivaldi-ffmpeg-codecs
     (nixGL swayfx) # Sway with FX
     swayidle # Idler
     swaylock # locker
