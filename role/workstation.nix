@@ -78,6 +78,7 @@ in
     postgresql
     procs
     progress
+    semgrep
     sshuttle
     unixtools.netstat
     unzip
