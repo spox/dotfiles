@@ -18,6 +18,10 @@ layout {
         }
         
     }
+    tab name="workspace" {
+        pane
+    }
+    
     tab name="hacks" {
         pane 
     }
