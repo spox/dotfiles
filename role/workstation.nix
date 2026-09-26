@@ -20,6 +20,7 @@ in
     contour
     tmux
     starship
+    vtm
     zellij
 
     # Language related things
@@ -31,7 +32,7 @@ in
     python3
     ruby_3_4
     shards
-    nodePackages.typescript-language-server
+    typescript-language-server
 
     # Shell utilities
     act
@@ -119,7 +120,7 @@ in
     msitools
     mono
     nixfmt
-    nodePackages.mermaid-cli
+    mermaid-cli
     openssl
     osslsigncode
     redis
@@ -132,7 +133,7 @@ in
 
     # Shell usability things
     croc # CLI file transfer
-    neofetch
+    fastfetch
     qrencode # Create QR
     whois
     wtfutil

@@ -35,7 +35,7 @@ inputbar {
     padding: 12px;
     margin: 0px 0px 20px 0px;
     border-radius: 8px;
-    font: "JetBrainsMono Nerd Font 20";
+    font: "Noto Sans Nerd Font 20";
     children: [prompt, entry];
 }
 
