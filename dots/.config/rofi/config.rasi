@@ -15,7 +15,7 @@ configuration {
     modi: "run,drun,window";
     
     // Font settings
-    font: "JetBrainsMono Nerd Font 18";
+    font: "Noto Sans Nerd Font 18";
     
     // Icon settings
     show-icons: true;
