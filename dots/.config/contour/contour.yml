@@ -96,11 +96,11 @@ mouse_block_selection_modifier: Control
 # - CopyToSelectionClipboard    Copies the selection to the selection clipboard. 
 #This is not supported on all platforms. 
 # 
-on_mouse_select: CopyToSelectionClipboard 
+#on_mouse_select: CopyToSelectionClipboard 
+on_mouse_select: None
 
 # Determines whether the instance is reloading the configuration files whenever it is changing or not. 
-live_config: false 
-
+live_config: true 
 
 # Section of experimental features.
 # All experimental features are disabled by default and must be explicitly enabled here.
@@ -188,7 +188,7 @@ profiles:
 
         # When this profile is *activated*, this flag decides
         # whether or not the size indicator on resize will be shown.
-        size_indicator_on_resize: true
+        size_indicator_on_resize: false
 
         # When this profile is being *activated*, this flag decides
         # whether or not to put the terminal's screen into fullscreen mode.
@@ -233,7 +233,7 @@ profiles:
         #   - VT510
         #   - VT520
         #   - VT525
-        terminal_id: VT525
+        # terminal_id: VT525
 
         # Defines a list of DEC modes to explicitly and permanently disable/enable support for.
         #
@@ -256,7 +256,7 @@ profiles:
         # Defines the number of milliseconds to wait before
         # actually executing the LF (linefeed) control code
         # in case DEC mode `DECSCLM` is enabled.
-        slow_scrolling_time: 100
+        # slow_scrolling_time: 100
 
         #Determines the initial terminal size in  characters
         terminal_size:
@@ -329,7 +329,7 @@ profiles:
             # Possible values are:
             # - native          : automatically choose the best available on the current platform
             # - mock            : mock font locator engine (not recommended for general use)
-            locator: Native
+            locator: native
 
             # Text shaping related settings
             text_shaping:
@@ -340,7 +340,7 @@ profiles:
                 # - CoreText    : selects CoreText engine (Mac OS/X only) (currently not implemented)
                 # - OpenShaper  : selects OpenShaper (harfbuzz/freetype/fontconfig, available on all
                 #                 platforms)
-                engine: harfbuzz
+                engine: native
 
             # Uses builtin textures for pixel-perfect box drawing.
             # If disabled, the font's provided box drawing characters
@@ -354,11 +354,11 @@ profiles:
             # - light        Uses a subpixel rendering technique in gray-scale.
             # - gray         Uses standard gray-scaled anti-aliasing.
             # - monochrome   Uses pixel-perfect bitmap rendering.
-            render_mode: Gray
+            render_mode: lcd
 
             # Indicates whether or not to include *only* monospace fonts in the font and
             # font-fallback list (Default: true).
-            strict_spacing: true
+            strict_spacing: false
 
             # Font family to use for displaying text.
             #
@@ -368,15 +368,15 @@ profiles:
             regular:
                 # Font family defines the font family name, such as:
                 # ""Fira Code", "Courier New", or "monospace" (default).
-                family: monospace
+                family: "Noto Mono"
 
                 # Font weight can be one of:
                 #   thin, extra_light, light, demilight, book, normal,
                 #   medium, demibold, bold, extra_bold, black, extra_black.
-                weight: Regular
+                weight: normal
 
                 # Font slant can be one of: normal, italic, oblique.
-                slant: Normal
+                slant: normal
 
                 # Set of optional font features to be enabled. This
                 # is usually a 4-letter code, such as ss01 or ss02 etc.
@@ -401,12 +401,12 @@ profiles:
 
             # This is a special font to be used for displaying unicode symbols
             # that are to be rendered in emoji presentation.
-            emoji: noto #emoji
+            emoji: emoji
 
         # Indicates whether or not bold text should be rendered in bright colors,
         # for indexed colors.
         # If disabled, normal color will be used instead.
-        draw_bold_text_with_bright_colors: false
+        draw_bold_text_with_bright_colors: true
 
         # Terminal cursor display configuration
         cursor:
@@ -416,7 +416,7 @@ profiles:
             # - rectangle     just the outline of a block
             # - underscore    a line under the text
             # - bar:          the well known i-Beam
-            shape: block
+            shape: bar
             # Determines whether or not the cursor will be blinking over time.
             blinking: true
             # Blinking interval (in milliseconds) to use when cursor is blinking.
@@ -434,7 +434,7 @@ profiles:
         # Note, currently only the cursor can be customized.
         visual_mode:
             cursor:
-                shape: block
+                shape: underscore
                 blinking: false
                 blinking_interval: 500
 

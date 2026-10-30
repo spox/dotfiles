@@ -15,11 +15,13 @@ in
     zlib
 
     # Lets define our shell related things
-    kitty
+    (nixGL kitty)
     (nixGL rio)
+    (nixGL wezterm)
     contour
     tmux
     starship
+    vtm
     zellij
 
     # Language related things
@@ -31,7 +33,7 @@ in
     python3
     ruby_3_4
     shards
-    nodePackages.typescript-language-server
+    typescript-language-server
 
     # Shell utilities
     act
@@ -116,10 +118,10 @@ in
     lazygit
     libarchive
     libffi
-    msitools
+    # msitools
     mono
     nixfmt
-    nodePackages.mermaid-cli
+    mermaid-cli
     openssl
     osslsigncode
     redis
@@ -130,9 +132,11 @@ in
     tig
     tree-sitter
 
+    distrobuilder
+
     # Shell usability things
     croc # CLI file transfer
-    neofetch
+    fastfetch
     qrencode # Create QR
     whois
     wtfutil
@@ -154,7 +158,7 @@ in
     # Desktop tools
     brightnessctl # Control brightness
     keepassxc # Local password manager
-    (nixGL librewolf) # Stripped down firefox
+    (nixGL librewolf-bin) # Stripped down firefox
     (nixGL ungoogled-chromium) # Stripped down chromium
     (nixGL swayfx) # Sway with FX
     swayidle # Idler

@@ -11,7 +11,7 @@ layout {
     }
     tab name="sysinfo" {
         floating_panes {
-            pane command="neofetch"
+            pane command="fastfetch"
         }
         pane close_on_exit=true {
             command "btop"
